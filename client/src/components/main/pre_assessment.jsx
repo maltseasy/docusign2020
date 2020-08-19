@@ -7,10 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import LogoFSC from '../common/logo_fsc.png'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -32,90 +33,174 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
-  }));
+  });
   
-  export default function PreAssessment() {
-    const classes = useStyles();
-    const [dropDownValue, setdropDownValue] = React.useState('');
-  
-    const handleChange = (event) => {
-      setdropDownValue(event.target.value);
+  class PreAssessment extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            maxSlide: 5,
+            dropDownValue: "",
+            slide: 1
+        }
     };
-  
-    return (
-        <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-                {/* <LockOutlinedIcon /> */}
-                <img src={LogoFSC} alt="Logo" />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Pre-Assessment Check
-            </Typography>
-            <form className={classes.form} noValidate>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField 
-                        variant="outlined"
-                        fullWidth
-                        id="Q2"
-                        label="Q2"
-                        autoFocus
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="Q2"
-                        label="Q2"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="Q1"
-                        label="Q1"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Select
-                        value={dropDownValue}
-                        onChange={handleChange}
-                        label="Dropdown"
-                        fullWidth
-                        >
-                        <MenuItem value="">
-                            <em>0</em>
-                        </MenuItem>
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        </Select>
-                    </Grid>
-                </Grid>
-                <ButtonGroup color="primary" fullWidth>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}>
-                    Next
-                    </Button>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}>
-                    Next
-                    </Button>
-                </ButtonGroup>
-                
-            </form>
-        </div>
-        </Container>
-    );
+    
+    handleDropDownChange = (event) => {
+        this.setState({dropDownValue: event.target.value});
+    };
+
+    handleSlideInc = () => {
+        if (this.state.slide<this.state.maxSlide){
+            this.setState({
+                slide: this.state.slide+1
+            })
+        }
+    }
+
+    handleSlideDec = () => {
+        if (this.state.slide>1){
+            this.setState({
+                slide: this.state.slide-1
+            })
+        }
+    }
+
+    
+    render() {
+        const { classes } = this.props;
+        let questions;
+        if (this.state.slide === 1){
+            questions = (<Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField 
+                                variant="outlined"
+                                fullWidth
+                                id="Q2"
+                                label="Q2"
+                                autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                variant="outlined"
+                                fullWidth
+                                id="Q2"
+                                label="Q2"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                variant="outlined"
+                                fullWidth
+                                id="Q1"
+                                label="Q1"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Select
+                                value={this.state.dropDownValue}
+                                onChange={this.handleDropDownChange}
+                                label="Dropdown"
+                                fullWidth
+                                >
+                                <MenuItem value="">
+                                    <em>0</em>
+                                </MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                </Select>
+                            </Grid>
+                        </Grid>)
+        }
+        else if (this.state.slide === 2){
+            questions = (<Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                variant="outlined"
+                                fullWidth
+                                id="Q1"
+                                label="Q1"
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField 
+                                variant="outlined"
+                                fullWidth
+                                id="Q3"
+                                label="Q3"
+                                autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                variant="outlined"
+                                fullWidth
+                                id="Q3"
+                                label="Q3"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Select
+                                value={this.state.dropDownValue}
+                                onChange={this.handleDropDownChange}
+                                label="Dropdown"
+                                fullWidth
+                                >
+                                <MenuItem value="">
+                                    <em>0</em>
+                                </MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                </Select>
+                            </Grid>
+                        </Grid>)
+        }
+
+        return(
+            <Container component="main" maxWidth="xs">
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        {/* <LockOutlinedIcon /> */}
+                        <img src={LogoFSC} alt="Logo" />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Pre-Assessment Check
+                    </Typography>
+                    
+                    <div className={classes.form} noValidate>
+                        {/* <ReactCSSTransitionGroup > */}
+                            {questions}
+                        {/* </ReactCSSTransitionGroup> */}
+                        
+                    </div>
+                    <ButtonGroup color="primary" fullWidth>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="#8EBC51"
+                                className={classes.submit}
+                                onClick={this.handleSlideInc}
+                                >
+                            Back
+                            </Button>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="#8EBC51"
+                                className={classes.submit}
+                                onClick={this.handleSlideDec}
+                                >
+                            Next
+                            </Button>
+                        </ButtonGroup>
+                </div>
+            </Container>
+        )
+    };
   }
+
+  export default withStyles(useStyles)(PreAssessment)

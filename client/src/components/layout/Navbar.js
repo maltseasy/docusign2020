@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import Typography from '@material-ui/core/Typography';
+import LogoWhiteNofill from '../../logo_svg/acorn-green-nofill-text.svg';
+import MenuDrop from './MenuDrop';
+
 // import { clearCurrentProfile } from '../../actions/profileActions';
 
 class Navbar extends Component {
@@ -68,9 +71,14 @@ class Navbar extends Component {
       <nav className="navbar navbar-expand-sm navbar-dark bg-green mb-4">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <Typography component="h1" variant="h4">
-                    Acorn
-              </Typography>
+            <div >
+            <img
+              src={LogoWhiteNofill}
+              style={{ width: 200, fill: "white"}}
+              alt="website logo"
+            />
+            </div>
+            
           </Link>
           <button
             className="navbar-toggler"
@@ -84,10 +92,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/profiles">
-                  {' '}
-                  (INSERT MENU HERE)
-                </Link>
+                <MenuDrop/>
               </li>
             </ul>
 

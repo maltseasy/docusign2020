@@ -20,6 +20,10 @@ const THEME = createMuiTheme({
   }
 });
 
+THEME.typography.h3 = {
+  
+}
+
 class App extends Component {
   render() {
     return (

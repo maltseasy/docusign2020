@@ -18,3 +18,11 @@
 .bg-green {
     background-color: #024823;
 }
+.cornerLogo{
+    width: 400;
+    height: 100;
+    /* fill: #FFFFFF; */
+}
+.fillWhite{
+    fill: #FFFFFF;
+}
