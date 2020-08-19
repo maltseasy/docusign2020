@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "acorn",
   "version": "1.0.0",
-  "description": "To increase efficiency in full stack web development",
+  "description": "To increase efficiency in FSC Certification",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",

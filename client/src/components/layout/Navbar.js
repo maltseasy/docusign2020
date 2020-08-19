@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
-import { clearCurrentProfile } from '../../actions/profileActions';
+import Typography from '@material-ui/core/Typography';
+// import { clearCurrentProfile } from '../../actions/profileActions';
 
 class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
     // Clears the profile state before logging out
-    this.props.clearCurrentProfile();
+    // this.props.clearCurrentProfile();
     this.props.logoutUser();
   }
 
@@ -24,7 +25,9 @@ class Navbar extends Component {
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/dashboard">
-            Dashboard
+            <Typography component="h1" variant="h5">
+                  Dashboard
+              </Typography>
           </Link>
         </li>
         <li className="nav-item">
@@ -50,7 +53,7 @@ class Navbar extends Component {
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link className="nav-link" to="/register">
-            Sign Up
+            Sign Up (still broken) Q
           </Link>
         </li>
         <li className="nav-item">
@@ -62,10 +65,12 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-green mb-4">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            DevConnector
+            <Typography component="h1" variant="h4">
+                    Acorn
+              </Typography>
           </Link>
           <button
             className="navbar-toggler"
@@ -81,7 +86,7 @@ class Navbar extends Component {
               <li className="nav-item">
                 <Link className="nav-link" to="/profiles">
                   {' '}
-                  Developers
+                  (INSERT MENU HERE)
                 </Link>
               </li>
             </ul>
@@ -105,5 +110,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, clearCurrentProfile }
+  { logoutUser }
 )(Navbar);

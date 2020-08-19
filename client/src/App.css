@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./fonts/Quicksand/Quicksand-VariableFont_wght.ttf'); /* IE9 Compat Modes */
+    src: local('Quicksand'), local('Quicksand'),
+         url('./fonts/Quicksand/Quicksand-VariableFont_wght.ttf') format('truetype'), /* Safari, Android, iOS */
+  }
+.blog-shadow-dreamy {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
+                0 2px 4px rgba(0,0,0,0.07), 
+                0 4px 8px rgba(0,0,0,0.07), 
+                0 8px 16px rgba(0,0,0,0.07),
+                0 16px 32px rgba(0,0,0,0.07), 
+                0 32px 64px rgba(0,0,0,0.07);
+}
+
+.bg-green {
+    background-color: #024823;
+}
