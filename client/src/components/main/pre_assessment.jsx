@@ -8,10 +8,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import LogoFSC from '../common/logo_fsc.png'
+import Question from '../layout/App1q';
+import LogoFSC from '../common/logo_fsc.png';
+import App1QuestionTree from '../logic/App1Tree';
 
 const useStyles = theme => ({
+    center: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -41,122 +47,58 @@ const useStyles = theme => ({
         this.state = {
             maxSlide: 5,
             dropDownValue: "",
-            slide: 1
+            slide: 1,
+            answerList: []
         }
-    };
-    
-    handleDropDownChange = (event) => {
-        this.setState({dropDownValue: event.target.value});
     };
 
     handleSlideInc = () => {
-        if (this.state.slide<this.state.maxSlide){
-            this.setState({
-                slide: this.state.slide+1
-            })
-        }
+        // if (this.state.slide<this.state.maxSlide){
+        //     this.setState({
+        //         slide: this.state.slide+1
+        //     })
+        // }
+        this.setState({
+            answerList: [
+                ...this.state.answerList,
+                1
+            ]
+        })
     }
 
     handleSlideDec = () => {
-        if (this.state.slide>1){
-            this.setState({
-                slide: this.state.slide-1
-            })
-        }
+        // if (this.state.slide>1){
+        //     this.setState({
+        //         slide: this.state.slide-1
+        //     })
+        // }
+        this.setState({
+            answerList: [
+                ...this.state.answerList,
+                0
+            ]
+        })
+    }
+
+    handleAnswer = (answer) => {
+        this.setState({
+            answerList: [
+                ...this.state.answerList,
+                answer
+            ]
+        })
     }
 
     
     render() {
         const { classes } = this.props;
         let questions;
-        if (this.state.slide === 1){
-            questions = (<Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField 
-                                variant="outlined"
-                                fullWidth
-                                id="Q2"
-                                label="Q2"
-                                autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="Q2"
-                                label="Q2"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="Q1"
-                                label="Q1"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Select
-                                value={this.state.dropDownValue}
-                                onChange={this.handleDropDownChange}
-                                label="Dropdown"
-                                fullWidth
-                                >
-                                <MenuItem value="">
-                                    <em>0</em>
-                                </MenuItem>
-                                <MenuItem value={1}>1</MenuItem>
-                                <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
-                                </Select>
-                            </Grid>
-                        </Grid>)
+        if (true){
+            questions = (<App1QuestionTree answers={this.state.answerList}/>)
         }
-        else if (this.state.slide === 2){
-            questions = (<Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="Q1"
-                                label="Q1"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField 
-                                variant="outlined"
-                                fullWidth
-                                id="Q3"
-                                label="Q3"
-                                autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                variant="outlined"
-                                fullWidth
-                                id="Q3"
-                                label="Q3"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Select
-                                value={this.state.dropDownValue}
-                                onChange={this.handleDropDownChange}
-                                label="Dropdown"
-                                fullWidth
-                                >
-                                <MenuItem value="">
-                                    <em>0</em>
-                                </MenuItem>
-                                <MenuItem value={1}>1</MenuItem>
-                                <MenuItem value={2}>2</MenuItem>
-                                <MenuItem value={3}>3</MenuItem>
-                                </Select>
-                            </Grid>
-                        </Grid>)
-        }
+        // else if (this.state.slide === 2){
+        //     questions = (<Question q={'Does your company 2...?'}/>)
+        // }
 
         return(
             <Container component="main" maxWidth="xs">
@@ -165,7 +107,7 @@ const useStyles = theme => ({
                         {/* <LockOutlinedIcon /> */}
                         <img src={LogoFSC} alt="Logo" />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h4">
                         Pre-Assessment Check
                     </Typography>
                     
@@ -176,6 +118,28 @@ const useStyles = theme => ({
                         
                     </div>
                     <ButtonGroup color="primary" fullWidth>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="#8EBC51"
+                            className={classes.submit}
+                            onClick={this.handleSlideInc}
+                            >
+                        No
+                        </Button>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="#8EBC51"
+                            className={classes.submit}
+                            onClick={this.handleSlideDec}
+                            >
+                        Yes
+                        </Button>
+                    </ButtonGroup>                    
+                    {/* <ButtonGroup color="primary" fullWidth>
                             <Button
                                 type="submit"
                                 fullWidth
@@ -196,7 +160,7 @@ const useStyles = theme => ({
                                 >
                             Next
                             </Button>
-                        </ButtonGroup>
+                    </ButtonGroup> */}
                 </div>
             </Container>
         )
