@@ -1,9 +1,11 @@
 import React from "react";
-import { Container, ButtonGroup } from '@material-ui/core';
+import { Container, ButtonGroup} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Question from '../layout/App1q';
 import LogoFSC from '../common/logo_fsc.png';
 import App1QuestionTree from '../logic/App1Tree';
 
@@ -36,7 +38,7 @@ const useStyles = theme => ({
     },
   });
   
-  class PreAssessment extends React.Component {
+  class Qualification extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -81,6 +83,7 @@ const useStyles = theme => ({
         if (true){
             questions = (<App1QuestionTree answers={this.state.answerList}/>)
         }
+
         return(
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
@@ -89,7 +92,7 @@ const useStyles = theme => ({
                         <img src={LogoFSC} alt="Logo" />
                     </Avatar>
                     <Typography component="h1" variant="h4">
-                        Pre-Assessment Check
+                        Qualification
                     </Typography>
                     
                     <div className={classes.form} noValidate>
@@ -124,4 +127,4 @@ const useStyles = theme => ({
     };
   }
 
-  export default withStyles(useStyles)(PreAssessment)
+  export default withStyles(useStyles)(Qualification)

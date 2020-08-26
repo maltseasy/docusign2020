@@ -69,18 +69,22 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <DraftsIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="App 1" />
-        </StyledMenuItem>
+        <a href="/pre-assessment">
+          <StyledMenuItem >
+            <ListItemIcon>
+              <DraftsIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="App 1" />
+          </StyledMenuItem>
+        </a>
+        <a href="/qualification">
         <StyledMenuItem>
           <ListItemIcon>
             <DraftsIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="App 2" />
         </StyledMenuItem>
+        </a>
         <StyledMenuItem>
           <ListItemIcon>
             <DraftsIcon fontSize="small" />

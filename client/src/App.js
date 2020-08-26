@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import MainView from "./components/main/main";
+// import MainView from "./components/main/main";
 import { Provider } from "react-redux";
 import store from "./store";
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import { createMuiTheme } from '@material-ui/core/styles';
-
-// IMPORT COMPONENTS
+import NavBar from './components/layout/Navbar';
+import PreAssessment from "./components/main/pre_assessment";
+import Qualifaction from "./components/main/qualification"
 
 import "./App.css";
 
@@ -20,10 +21,6 @@ const THEME = createMuiTheme({
   }
 });
 
-THEME.typography.h3 = {
-  
-}
-
 class App extends Component {
   render() {
     return (
@@ -31,7 +28,9 @@ class App extends Component {
         <Provider store={store}>
           <Router>
             <div className="App">
-            <Route exact path="/" component={MainView} />
+              <NavBar/>
+              <Route exact path="/pre-assessment" component={PreAssessment} />
+              <Route exact path="/qualification" component={Qualifaction} />
             </div>
           </Router>
         </Provider>
