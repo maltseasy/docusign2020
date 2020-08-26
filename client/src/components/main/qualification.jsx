@@ -2,12 +2,10 @@ import React from "react";
 import { Container, ButtonGroup} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Question from '../layout/App1q';
 import LogoFSC from '../common/logo_fsc.png';
-import App1QuestionTree from '../logic/App1Tree';
+import App2QuestionTree from '../logic/App2Tree';
 
 const useStyles = theme => ({
     center: {
@@ -45,7 +43,10 @@ const useStyles = theme => ({
             maxSlide: 5,
             dropDownValue: "",
             slide: 1,
-            answerList: []
+            answerList: [],
+            buttonLabels: [
+                'No','Yes'
+            ]
         }
     };
 
@@ -76,12 +77,21 @@ const useStyles = theme => ({
         })
     }
 
+    handleOverride = (e) => {
+        this.setState({
+            buttonLabels: [
+                e[0],
+                e[1]
+            ]
+        })
+    }
+
     
     render() {
         const { classes } = this.props;
         let questions;
         if (true){
-            questions = (<App1QuestionTree answers={this.state.answerList}/>)
+            questions = (<App2QuestionTree answers={this.state.answerList} overrideButtons={this.handleOverride}/>)
         }
 
         return(
@@ -108,7 +118,7 @@ const useStyles = theme => ({
                             className={classes.submit}
                             onClick={this.handleSlideInc}
                             >
-                        No
+                        {this.state.buttonLabels[0]}
                         </Button>
                         <Button
                             type="submit"
@@ -118,7 +128,7 @@ const useStyles = theme => ({
                             className={classes.submit}
                             onClick={this.handleSlideDec}
                             >
-                        Yes
+                        {this.state.buttonLabels[1]}
                         </Button>
                     </ButtonGroup>                    
                 </div>
