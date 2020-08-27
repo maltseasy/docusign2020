@@ -1,0 +1,64 @@
+{
+    "filter_level_1":{
+        "title":"Filter Level 1",
+        "questions":[
+            {
+                "id":1,
+                "content":"Do you produce products or only trade them?",
+                "answers":["I only trade FSC products","I produce FSC products"],
+                "next":[2,3],
+                "prev":-1,
+                "input":null
+            },
+            {
+                "id":2,
+                "content":"Do you physically possess these products?",
+                "answers":["Yes","No"],
+                "next":-1,
+                "prev":1,
+                "input":null,
+                "results":["TDwPP","TD/PP"]
+            },
+            {
+                "id":3,
+                "content":"Are you a primary producer (meaning you use timber coming directly from the forest?",
+                "answers":["Yes","No"],
+                "next":-1,
+                "prev":1,
+                "input":null,
+                "results":["PP","SP"]
+            }
+        ]
+    },
+    "filter_level_2":{
+        "title":"Filter Level 2",
+        "questions":[
+            {
+                "id":1,
+                "content":"Does/would your entire production use FSC materials (as opposite to only part of the production set for FSC and other part not)?",
+                "answers":["Yes, my entire production is/will focus on FSC material",""],
+                "next":[2,3],
+                "prev":-1,
+                "input":null
+            },
+            {
+                "id":2,
+                "content":"Do/would you only sell your products with one of the FSC claims that you have used as your input, or do/would you calculate your output claims differently?",
+                "answers":["I only sell (would sell) products with one of the claims that I have used as your input","I (would) either calculate a percentage claim that corresponds to the proportion of claim-contributing inputs, or chose a proportion of outputs to be sold with a credit claim corresponding to the quantity of claim-contributing inputs","I (would) apply all options"],
+                "next":[-1,5,6],
+                "prev":1,
+                "input":null,
+                "results":["TR/S"]
+            }
+        ]
+    },
+    "filter_level_3":{
+
+    },
+    "filter_level_4":{
+
+    },
+    "filter_level_5":{
+
+    }
+}
