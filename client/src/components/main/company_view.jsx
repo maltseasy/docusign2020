@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import LogoFSC from '../common/logo_fsc.png';
 import App2QuestionTree from '../logic/App2Tree';
-import List from './list';
 
 const useStyles = theme => ({
     center: {
@@ -96,9 +95,42 @@ const useStyles = theme => ({
         }
 
         return(
-            <Container component="main" maxWidth="md">
+            <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <List />
+                    <Avatar className={classes.avatar}>
+                        {/* <LockOutlinedIcon /> */}
+                        <img src={LogoFSC} alt="Logo" />
+                    </Avatar>
+                    <Typography component="h1" variant="h4">
+                        Qualification
+                    </Typography>
+                    
+                    <div className={classes.form} noValidate>
+                            {questions}
+                        
+                    </div>
+                    <ButtonGroup color="primary" fullWidth>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="#8EBC51"
+                            className={classes.submit}
+                            onClick={this.handleSlideInc}
+                            >
+                        {this.state.buttonLabels[0]}
+                        </Button>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="#8EBC51"
+                            className={classes.submit}
+                            onClick={this.handleSlideDec}
+                        >
+                        {this.state.buttonLabels[1]}
+                        </Button>
+                    </ButtonGroup>                    
                 </div>
             </Container>
         )

@@ -17,23 +17,28 @@ class App1LogicTree extends React.Component {
         console.log(this.props.answers.length);
     }
 
+    handleQOverride = (e) => {
+        console.log('pooo')
+        this.props.overrideButtons(e[0],e[1]);
+    }
+
     render () {
         if (this.props.answers.length ===1){
             if (this.props.answers[0]===0){
                 return (
-                    <Question q={'u'}/>
+                    <Question q={'u'} handleQOverride={['pee','poo']}/>
                 )
             }
             else {
                 return (
-                    <Question q={'q2'} />
+                    <Question q={'q2'} handleQOverride={this.handleQOverride}/>
                 )
             }
             
         }
         else {
                 return (
-                    <Question q={'q0'} />
+                    <Question q={'q0'} handleQOverride={['pee','poo']}/>
                 )
                 
             

@@ -61,22 +61,6 @@ class Question extends React.Component {
                         {this.props.q}
                     </Typography>
                 </Grid>
-                
-                {/* <Grid item xs={12}>
-                    <Select
-                    value={this.state.dropDownValue}
-                    onChange={this.handleDropDownChange}
-                    label="Dropdown"
-                    fullWidth
-                    >
-                    <MenuItem value="">
-                        <em>0</em>
-                    </MenuItem>
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    </Select>
-                </Grid> */}
             </Grid>
         )
     }
