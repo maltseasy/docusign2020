@@ -26,3 +26,7 @@
 .fillWhite{
     fill: #FFFFFF;
 }
+
+.webmap {
+    height: 400px;
+}

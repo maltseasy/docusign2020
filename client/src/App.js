@@ -6,8 +6,9 @@ import store from "./store";
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import { createMuiTheme } from '@material-ui/core/styles';
 import NavBar from './components/layout/Navbar';
-import PreAssessment from "./components/main/pre_assessment";
+// import PreAssessment from "./components/main/pre_assessment";
 import Qualifaction from "./components/main/qualification"
+import { setDefaultOptions } from 'esri-loader';
 
 import "./App.css";
 
@@ -23,14 +24,19 @@ const THEME = createMuiTheme({
 
 class App extends Component {
   render() {
+
+    setDefaultOptions({ version: '3.33' });
+
     return (
       <MuiThemeProvider theme={THEME}>
         <Provider store={store}>
           <Router>
             <div className="App">
-              <NavBar/>
-              <Route exact path="/pre-assessment" component={PreAssessment} />
-              <Route exact path="/qualification" component={Qualifaction} />
+            <NavBar/>
+              <Switch>
+                <Route path="/qualification" component={Qualifaction} />
+              </Switch>
+              
             </div>
           </Router>
         </Provider>
