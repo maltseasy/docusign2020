@@ -99,10 +99,12 @@ class Qualification extends React.Component {
     });
   };
 
-  handleCompanyView = (companyData) => {
+  handleCompanyView = (companyData,index) => {
+    console.log(index);
     this.setState(
       {
         company: companyData,
+        companyIndex: index
       },
       () => {
         this.setState({
@@ -120,15 +122,15 @@ class Qualification extends React.Component {
       () => {
         this.setState({
           company: null,
+          companyIndex: null
         });
       }
     );
   };
 
-  handleFlag = (e) => {
-    this.setState({
-      companyData: [...this.state.companyData, e],
-    });
+  handleFlag = (e,companyIndex,index) => {
+    console.log(companyIndex, index)
+    this.state.companyData[companyIndex]["data"][index] = e;
   };
 
   render() {
@@ -140,6 +142,7 @@ class Qualification extends React.Component {
           company={this.state.company}
           handleCompanyClose={this.handleCompanyClose}
           handleFlag={this.handleFlag}
+          index={this.state.companyIndex}
         />
       );
     } else {
@@ -154,13 +157,14 @@ class Qualification extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody style={{width: '100%'}}>
-                {this.state.companyData.map((company) => (
+                {this.state.companyData.map((company,index) => (
                   <TableRow key={company.name} style={{width: '100%'}}>
                     <Button style={{width: '100%'}}>
                       <TableCell
-                        style={{width: '100%'}}
+                        style={{width: '100%', fontSize: 14}}
                         align="left"
-                        onClick={() => this.handleCompanyView(company)}
+                        onClick={() => this.handleCompanyView(company,index)}
+                        
                       >
                         {company.name}
                       </TableCell>

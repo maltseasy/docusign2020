@@ -22,7 +22,7 @@ const ListData = (props) => {
       ...currentData,
       flagged: !currentData.flagged,
     });
-    props.handleFlag(currentData);
+    props.handleFlag(currentData, props.index);
   };
 
   return (

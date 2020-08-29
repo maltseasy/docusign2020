@@ -32,8 +32,9 @@ class CompanyView extends React.Component {
     };
   }
 
-  handleFlag = (e) => {
-    this.props.handleFlag(e);
+  handleFlag = (e,index) => {
+    console.log(e,index);
+    this.props.handleFlag(e,this.props.index,index);
   };
 
   componentWillMount() {
@@ -89,10 +90,11 @@ class CompanyView extends React.Component {
                   <>
                     <h1>{this.props.company.name}</h1>
                     <ul>
-                      {this.props.company.data.map((dataValue) => (
+                      {this.props.company.data.map((dataValue,index) => (
                         <ListData
                           data={dataValue}
                           handleFlag={this.handleFlag}
+                          index={index}
                         />
                       ))}
                     </ul>
