@@ -29,4 +29,6 @@
 
 .webmap {
     height: 400px;
+    margin-top: 10%;
+    border-radius: 5px;
 }

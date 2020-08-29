@@ -1,25 +1,44 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Grid";
+import React, { useState, useEffect } from "react";
+import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import { Flag } from "@material-ui/icons";
+import { FlagOutlined } from "@material-ui/icons";
+import Grid from "@material-ui/core/Grid";
 
 const ListData = (props) => {
-  const [open, setOpen] = useState(false);
+  const [currentData, setCurrentData] = useState(props.data);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  useEffect(() => {
+    setCurrentData(props.data);
+  }, [props.data]);
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleFlag = () => {
+    console.log({
+      ...currentData,
+      flagged: !currentData.flagged,
+    });
+
+    setCurrentData({
+      ...currentData,
+      flagged: !currentData.flagged,
+    });
+    props.handleFlag(currentData);
   };
 
   return (
     <>
-      <li>
-        <p>{`${props.data.name}: ${props.data.value}`}</p>
-        <Button onClick={handleOpen}>Edit Flags</Button>
-      </li>
-      <Modal open={open} onClose={handleClose}></Modal>
+      <Grid container spacing={1}>
+        <Grid item xs={12} sm={6}>
+          <p>{`${currentData.name}: ${currentData.value}`}</p>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <div style={{ float: "right" }}>
+            <Button onClick={handleFlag}>
+              {currentData.flagged ? <Flag /> : <FlagOutlined />}
+            </Button>
+          </div>
+        </Grid>
+      </Grid>
     </>
   );
 };

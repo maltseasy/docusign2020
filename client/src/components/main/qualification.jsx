@@ -7,7 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import CompanyView from './company_view';
+import CompanyView from "./company_view";
+import Button from "@material-ui/core/Button";
+import DummyData from '../data/dummy_data.json';
 
 const useStyles = (theme) => ({
   center: {
@@ -35,7 +37,7 @@ const useStyles = (theme) => ({
     alignItems: "center",
     backgroundColor: "#f2f2f2",
     borderRadius: 5,
-    padding: 10,
+    padding: 20,
     boxShadow:
       "0 1px 2px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.07), 0 4px 8px rgba(0,0,0,0.07), 0 8px 16px rgba(0,0,0,0.07), 0 16px 32px rgba(0,0,0,0.07), 0 32px 64px rgba(0,0,0,0.07)",
   },
@@ -69,68 +71,7 @@ class Qualification extends React.Component {
       answerList: [],
       buttonLabels: ["No", "Yes"],
       viewing: false,
-      companyData: [
-        {
-          name: "Bob's Pizza",
-          data: [
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-          ]
-        },
-        {
-          name: "Rob's Pizza",
-          data: [
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-          ]
-        },
-        {
-          name: "Cob's Pizza",
-          data: [
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-            {
-              "name": "Data",
-              "value": "some data here",
-              "flags": [],
-            },
-          ]
-        },
-      ]
+      companyData: DummyData,
     };
   }
 
@@ -164,11 +105,9 @@ class Qualification extends React.Component {
         company: companyData,
       },
       () => {
-        this.setState(
-          {
-            viewing: true,
-          }
-        );
+        this.setState({
+          viewing: true,
+        });
       }
     );
   };
@@ -185,43 +124,47 @@ class Qualification extends React.Component {
       }
     );
   };
-//   handleFlag = (e) => {
-//       e = {
-//           name: "rufw",
-//           flags: []
-//       }
-//       this.setState({
-          
-//       })
-//   }
+
+  handleFlag = (e) => {
+    this.setState({
+      companyData: [...this.state.companyData, e],
+    });
+  };
 
   render() {
     const { classes } = this.props;
 
     if (this.state.viewing) {
       return (
-        <CompanyView company={this.state.company} />
+        <CompanyView
+          company={this.state.company}
+          handleCompanyClose={this.handleCompanyClose}
+          handleFlag={this.handleFlag}
+        />
       );
     } else {
       return (
         <Container component="main" maxWidth="md">
           <div className={classes.paper}>
-            <TableContainer component={Paper}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Company Name</TableCell>
+            <TableContainer component={Paper} style={{padding:15, width: '100%'}}>
+              <TableHead style={{width: '100%'}}>
+                <TableRow style={{width: '100%'}}>
+                  <TableCell style={{fontSize:20, width: '100%'}}>Company Name</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {this.state.companyData.map(company => (
-                  <TableRow key={company.name}>
-                    <TableCell
-                      align="left"
-                      onClick={() => this.handleCompanyView(company)}
-                    >
-                      {company.name}
-                    </TableCell>
+              <TableBody style={{width: '100%'}}>
+                {this.state.companyData.map((company) => (
+                  <TableRow key={company.name} style={{width: '100%'}}>
+                    <Button style={{width: '100%'}}>
+                      <TableCell
+                        style={{width: '100%'}}
+                        align="left"
+                        onClick={() => this.handleCompanyView(company)}
+                      >
+                        {company.name}
+                      </TableCell>
+                    </Button>
                   </TableRow>
                 ))}
               </TableBody>
