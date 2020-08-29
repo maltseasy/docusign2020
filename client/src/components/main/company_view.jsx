@@ -90,13 +90,13 @@ class CompanyView extends React.Component {
                   <>
                     <h1>{this.props.company.name}</h1>
                     <ul>
-                      {this.props.company.data.map((dataValue,index) => (
+                      {/* this.props.company.data.map((dataValue,index) => (
                         <ListData
                           data={dataValue}
                           handleFlag={this.handleFlag}
                           index={index}
                         />
-                      ))}
+                      )) */}
                     </ul>
                   </>
                 ) : null}

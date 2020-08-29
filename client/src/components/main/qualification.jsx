@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import CompanyView from "./company_view";
 import Button from "@material-ui/core/Button";
 import DummyData from '../data/dummy_data.json';
+import { getCompanyList, organizationType } from '../data/dynamics';
 
 const useStyles = (theme) => ({
   center: {
@@ -71,8 +72,16 @@ class Qualification extends React.Component {
       answerList: [],
       buttonLabels: ["No", "Yes"],
       viewing: false,
-      companyData: DummyData,
+      companyData: null,
     };
+  }
+
+  componentWillMount() {
+    getCompanyList().then(data => {
+      this.setState({
+        companyData: data.value
+      })
+    });
   }
 
   handleSlideInc = () => {
@@ -153,11 +162,11 @@ class Qualification extends React.Component {
               <TableHead style={{width: '100%'}}>
                 <TableRow style={{width: '100%'}}>
                   <TableCell style={{fontSize:20, width: '100%'}}>Company Name</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell>Organization Type</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody style={{width: '100%'}}>
-                {this.state.companyData.map((company,index) => (
+                {this.state.companyData && this.state.companyData.map((company,index) => (
                   <TableRow key={company.name} style={{width: '100%'}}>
                     <Button style={{width: '100%'}}>
                       <TableCell
@@ -167,6 +176,9 @@ class Qualification extends React.Component {
                         
                       >
                         {company.name}
+                      </TableCell>
+                      <TableCell>
+                        {`${organizationType(company.fsc_organizationtype)}`}
                       </TableCell>
                     </Button>
                   </TableRow>
