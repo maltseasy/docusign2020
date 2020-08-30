@@ -138,11 +138,6 @@ class Qualification extends React.Component {
     );
   };
 
-  handleFlag = (e, companyIndex, index) => {
-    console.log(companyIndex, index);
-    this.state.companyData[companyIndex]["data"][index] = e;
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -151,7 +146,6 @@ class Qualification extends React.Component {
         <CompanyView
           company={this.state.company}
           handleCompanyClose={this.handleCompanyClose}
-          handleFlag={this.handleFlag}
           index={this.state.companyIndex}
         />
       );

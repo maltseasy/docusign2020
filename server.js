@@ -24,6 +24,30 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// app.get('/callback', (req, res) => {
+//   console.log(req,res);
+//   console.log(Object.keys(req));
+
+//   // var options_docutoken = {
+//   //   'method': 'POST',
+//   //   'url': 'https://account-d.docusign.com/oauth/token',
+//   //   'headers': {
+//   //     'Content-Type': 'application/x-www-form-urlencoded',
+//   //     'Authorization': 'Basic ' + Buffer.from('c81fcda2-7535-447d-a957-6b8e7fa46fc8:f64be9dc-d861-4dc6-a9ed-0c16bcca2e84').toString('base64')
+//   //   },
+//   //   form: {
+//   //     'code': req.param.code,
+//   //     'grant_type': 'authorization_code',
+//   //   }
+//   // };
+
+//   // request(options_docutoken, function(error, response) {
+//   //   if (error) throw new Error (error);
+
+//   //   console.log(response)
+//   // })
+// })
+
 var expTime = new Date(AccessKey.newTime);
 var now = new Date();
 var timeDiff = expTime - now;

@@ -31,21 +31,46 @@ export async function getOrganizationRequirements(id) {
     return response.json();
 }
 
-export async function getRequirementName(id) {
+export function getRequirementName(id) {
+
     let url = baseUrl + `fsc_requirment_type_per_coc_scenario_stds?$filter=fsc_requirment_type_per_coc_scenario_stdid eq '${id}'`
-    await fetch(url, {
+
+    var result = fetch(url, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + AccessKey.data.access_token
         }
     }).then(response => {
-        
-    })
-    return response.json();
+        return response.json();
+    }).then(data => {
+        let standardId = data.value[0]._fsc_std_element_id_value;
+        let url = baseUrl + `fsc_standards_elementses?$filter=fsc_standards_elementsid eq '${standardId}'`;
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + AccessKey.data.access_token
+            }
+        })
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        let standardId = data.value[0]._fsc_standard_id_value;
+        let url = baseUrl + `fsc_standardses?$filter=fsc_standardsid eq '${standardId}'`;
+        return fetch(url, {
+            method: 'GET',
+            headers:  {
+                'Authorization': 'Bearer ' + AccessKey.data.access_token
+            }
+        })
+    }).then(response => {
+        return response.json();
+    }).catch(error => console.log(error))
+
+    return result;   
 }
 
 export async function getCompanySites(id) {
-    let url = baseUrl + `fsc_sites?$filter=fsc_coccompany eq ${id}`;
+    let url = baseUrl + `fsc_sites?$filter=_fsc_coccompany_value eq ${id}`;
 
     const response = await fetch(url, {
         method: 'GET',

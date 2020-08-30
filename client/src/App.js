@@ -9,6 +9,7 @@ import NavBar from './components/layout/Navbar';
 // import PreAssessment from "./components/main/pre_assessment";
 import Qualifaction from "./components/main/qualification"
 import { setDefaultOptions } from 'esri-loader';
+import {DocusignCallback} from "./components/main/docusign"
 
 import "./App.css";
 
@@ -35,6 +36,7 @@ class App extends Component {
             <NavBar/>
               <Switch>
                 <Route path="/qualification" component={Qualifaction} />
+                <Route path="/callback" component={DocusignCallback} />
               </Switch>
               
             </div>

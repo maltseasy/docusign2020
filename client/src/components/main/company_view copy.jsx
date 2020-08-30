@@ -2,7 +2,6 @@ import React from "react";
 import { Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import WebMapView from "./webmapview";
-import WebMapView2 from './webmapviewtest';
 import ListData from "./listdata.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -10,7 +9,6 @@ import { getOrganizationRequirements } from "../data/dynamics";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {DocusignRequest} from "./docusign";
 
 const useStyles = (theme) => ({
   dataDisplay: {
@@ -52,10 +50,7 @@ class CompanyView extends React.Component {
   componentWillMount() {
     // retrieve list or organization requirements
     getOrganizationRequirements(this.props.company.accountid).then((data) => {
-      data.value.forEach((element) => {
-        element.flagged = false;
-        element.notes = "";
-      });
+      data.value.forEach((element) => (element.flagged = false));
       console.log(data.value);
       this.setState({
         organizationRequirements: data.value,
@@ -138,13 +133,11 @@ class CompanyView extends React.Component {
 
                 {this.state.showData ? (
                   <>
-                    
                     <h1>{this.props.company.name}</h1>
                     <h3>
                       FSC License Number: {this.props.company.fsc_licensenumber}
                     </h3>
                     <ul>
-                      
                       {this.state.organizationRequirements &&
                         this.state.organizationRequirements.map(
                           (dataValue, index) => (
@@ -161,7 +154,6 @@ class CompanyView extends React.Component {
                 {this.state.showReview ? (
                   <>
                     <h1>Review</h1>
-                    <DocusignRequest/>
                   </>
                 ) : null}
               </div>
@@ -205,11 +197,8 @@ class CompanyView extends React.Component {
               </FormGroup>
               <WebMapView
                 data={this.state.mapData}
-                id={this.props.company.accountid}
                 layers={this.state.mapLayerToggles}
-                key={this.state.mapLayerToggles}
               />
-              <WebMapView2 />
             </Grid>
           </Grid>
         </Container>
