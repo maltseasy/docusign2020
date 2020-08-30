@@ -3,9 +3,9 @@ import { loadModules } from "esri-loader";
 // import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class WebMapView extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     loadModules(

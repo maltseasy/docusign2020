@@ -9,8 +9,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CompanyView from "./company_view";
 import Button from "@material-ui/core/Button";
-import DummyData from '../data/dummy_data.json';
-import { getCompanyList, organizationType } from '../data/dynamics';
+import DummyData from "../data/dummy_data.json";
+import { getCompanyList, organizationType } from "../data/dynamics";
 
 const useStyles = (theme) => ({
   center: {
@@ -76,11 +76,12 @@ class Qualification extends React.Component {
     };
   }
 
-  componentWillMount() {
-    getCompanyList().then(data => {
+  componentDidMount() {
+    getCompanyList().then((data) => {
+      console.log(data);
       this.setState({
-        companyData: data.value
-      })
+        companyData: data.value,
+      });
     });
   }
 
@@ -108,12 +109,12 @@ class Qualification extends React.Component {
     });
   };
 
-  handleCompanyView = (companyData,index) => {
+  handleCompanyView = (companyData, index) => {
     console.log(index);
     this.setState(
       {
         company: companyData,
-        companyIndex: index
+        companyIndex: index,
       },
       () => {
         this.setState({
@@ -131,14 +132,14 @@ class Qualification extends React.Component {
       () => {
         this.setState({
           company: null,
-          companyIndex: null
+          companyIndex: null,
         });
       }
     );
   };
 
-  handleFlag = (e,companyIndex,index) => {
-    console.log(companyIndex, index)
+  handleFlag = (e, companyIndex, index) => {
+    console.log(companyIndex, index);
     this.state.companyData[companyIndex]["data"][index] = e;
   };
 
@@ -158,31 +159,36 @@ class Qualification extends React.Component {
       return (
         <Container component="main" maxWidth="md">
           <div className={classes.paper}>
-            <TableContainer component={Paper} style={{padding:15, width: '100%'}}>
-              <TableHead style={{width: '100%'}}>
-                <TableRow style={{width: '100%'}}>
-                  <TableCell style={{fontSize:20, width: '100%'}}>Company Name</TableCell>
-                  <TableCell>Organization Type</TableCell>
+            <TableContainer
+              component={Paper}
+              style={{ padding: 15, width: "100%" }}
+            >
+              <TableHead style={{ width: "100%" }}>
+                <TableRow style={{ width: "100%" }}>
+                  <TableCell style={{ fontSize: 20, width: "100%" }}>
+                    Company Name
+                  </TableCell>
+                  <TableCell style={{ fontSize: 20, width: "100%" }}>Organization Type</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody style={{width: '100%'}}>
-                {this.state.companyData && this.state.companyData.map((company,index) => (
-                  <TableRow key={company.name} style={{width: '100%'}}>
-                    <Button style={{width: '100%'}}>
-                      <TableCell
-                        style={{width: '100%', fontSize: 14}}
-                        align="left"
-                        onClick={() => this.handleCompanyView(company,index)}
-                        
-                      >
-                        {company.name}
-                      </TableCell>
-                      <TableCell>
+              <TableBody style={{ width: "100%" }}>
+                {this.state.companyData &&
+                  this.state.companyData.map((company, index) => (
+                    <TableRow key={company.name} style={{ width: "100%" }}>
+                      <Button style={{ width: "100%" }}>
+                        <TableCell
+                          style={{ width: "100%", fontSize: 14 }}
+                          align="left"
+                          onClick={() => this.handleCompanyView(company, index)}
+                        >
+                          {company.name}
+                        </TableCell>
+                      </Button>
+                      <TableCell align="left">
                         {`${organizationType(company.fsc_organizationtype)}`}
                       </TableCell>
-                    </Button>
-                  </TableRow>
-                ))}
+                    </TableRow>
+                  ))}
               </TableBody>
             </TableContainer>
           </div>
