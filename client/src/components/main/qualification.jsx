@@ -178,7 +178,7 @@ class Qualification extends React.Component {
                         {company.name}
                       </TableCell>
                       <TableCell>
-                        {`${organizationType(company.fsc_organizationtype)}`}
+                        {organizationType(company.fsc_organizationtype)}
                       </TableCell>
                     </Button>
                   </TableRow>
