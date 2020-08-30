@@ -46,8 +46,12 @@ class CompanyView extends React.Component {
 
   handleFlag = (e, index) => {
     console.log(e, index);
-    this.props.handleFlag(e, this.props.index, index);
-  };
+      };
+
+  handleNote = (e, index) => {
+
+    console.log(e, index);
+  }
 
   componentWillMount() {
     // retrieve list or organization requirements
@@ -151,7 +155,8 @@ class CompanyView extends React.Component {
                             <ListData
                               data={dataValue}
                               handleFlag={this.handleFlag}
-                              index={index}
+
+                              handleNote={this.handleNote}                              index={index}
                             />
                           )
                         )}
