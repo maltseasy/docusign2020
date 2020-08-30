@@ -5,6 +5,7 @@ import WebMapView from "./webmapview";
 import ListData from "./listdata.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import { getOrganizationRequirements } from '../data/dynamics';
 
 const useStyles = (theme) => ({
   dataDisplay: {
@@ -29,15 +30,24 @@ class CompanyView extends React.Component {
       value: 0,
       showData: true,
       showReview: false,
+      organizationRequirements: [],
     };
   }
 
-  handleFlag = (e,index) => {
-    console.log(e,index);
-    this.props.handleFlag(e,this.props.index,index);
+  handleFlag = (e, index) => {
+    console.log(e, index);
+    this.props.handleFlag(e, this.props.index, index);
   };
 
   componentWillMount() {
+    // retrieve list or organization requirements
+    getOrganizationRequirements(this.props.company.accountid).then(data => {
+      this.setState({
+        organizationRequirements: data
+      });
+    });
+
+
     // TODO: retrieve map data
     this.setState({
       mapData: null,
@@ -89,14 +99,15 @@ class CompanyView extends React.Component {
                 {this.state.showData ? (
                   <>
                     <h1>{this.props.company.name}</h1>
+                    <h3>FSC License Number: {this.props.company.fsc_licensenumber}</h3>
                     <ul>
-                      {/* this.props.company.data.map((dataValue,index) => (
+                      {organizationRequirements.map((dataValue,index) => (
                         <ListData
                           data={dataValue}
                           handleFlag={this.handleFlag}
                           index={index}
                         />
-                      )) */}
+                      ))}
                     </ul>
                   </>
                 ) : null}

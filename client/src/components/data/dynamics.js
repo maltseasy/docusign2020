@@ -1,8 +1,7 @@
 let AccessKey = require('../data/access_key.json')
+let baseUrl = "https://org60ab6.api.crm3.dynamics.com/api/data/v9.1/";
 
 export async function getCompanyList(options) {
-    let baseUrl = "https://org60ab6.api.crm3.dynamics.com/api/data/v9.1/";
-    
     if (options) {
         return "something";
     } else {
@@ -14,16 +13,14 @@ export async function getCompanyList(options) {
                 'Authorization': 'Bearer ' + AccessKey.data.access_token
             }
         });
-        console.log(response.body);
-        console.log(AccessKey.data);
+        //console.log(response.body);
+        //console.log(AccessKey.data);
         return response.json();
     }
 }
 
 export async function getOrganizationRequirements(id) {
-    let baseUrl = "https://org60ab6.api.crm3.dynamics.com/api/data/v9.1/";
-
-    let url = baseUrl + `new_organization_requirements?$filter=new_fsc_organization eq ${id}`;
+    let url = baseUrl + `new_organization_requirements?$filter=_new_fsc_organization_value eq '${id}'`;
 
     const response = await fetch(url, {
         method: 'GET',
@@ -34,9 +31,20 @@ export async function getOrganizationRequirements(id) {
     return response.json();
 }
 
-export async function getCompanySites(id) {
-    let baseUrl = "https://org60ab6.api.crm3.dynamics.com/api/data/v9.1/";
+export async function getRequirementName(id) {
+    let url = baseUrl + `fsc_requirment_type_per_coc_scenario_stds?$filter=fsc_requirment_type_per_coc_scenario_stdid eq '${id}'`
+    await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + AccessKey.data.access_token
+        }
+    }).then(response => {
+        
+    })
+    return response.json();
+}
 
+export async function getCompanySites(id) {
     let url = baseUrl + `fsc_sites?$filter=fsc_coccompany eq ${id}`;
 
     const response = await fetch(url, {
