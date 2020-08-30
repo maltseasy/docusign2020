@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 var request = require('request');
-let AccessKey = require('./config/access_key.json');
+let AccessKey = require('./client/src/components/data/access_key.json');
 var fs = require('fs');
 
 // Insert API Routes below
@@ -59,13 +59,13 @@ app.listen(port, () => {
       console.log(response.body);
       var newTime = new Date(Date.now()+3600000);
       var NewAccessKey = {"newTime": newTime};
-      NewAccessKey.data = response.body;
+      NewAccessKey.data = JSON.parse(response.body);
 
       console.log(newTime, expTime, now);
 
-      fs.writeFile('./config/access_key.json', JSON.stringify(NewAccessKey), function(err) {
-        if (err) throw err;
-        console.log('complete');
+      fs.writeFile('./client/src/components/data/access_key.json', JSON.stringify(NewAccessKey),'utf8', function(err) {
+          if (err) throw err;
+          console.log('complete');
         })
     });
 
