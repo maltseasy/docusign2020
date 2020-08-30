@@ -16,6 +16,34 @@ export async function getCompanyList(options) {
     }
 }
 
+export async function getOrganizationRequirements(id) {
+    let baseUrl = "https://org60ab6.api.crm3.dynamics.com/api/data/v9.1/";
+
+    let url = baseUrl + `new_organization_requirements?$filter=new_fsc_organization eq ${id}`;
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + ''
+        }
+    });
+    return response.json();
+}
+
+export async function getCompanySites(id) {
+    let baseUrl = "https://org60ab6.api.crm3.dynamics.com/api/data/v9.1/";
+
+    let url = baseUrl + `fsc_sites?$filter=fsc_coccompany eq ${id}`;
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + ''
+        }
+    });
+    return response.json();
+}
+
 export function organizationType(type) {
     if (type === 1) {
         return "Certificate Holder";
