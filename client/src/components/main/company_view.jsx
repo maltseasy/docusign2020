@@ -6,7 +6,7 @@ import WebMapView2 from "./webmapviewtest";
 import ListData from "./listdata.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { getOrganizationRequirements, updateDB } from "../data/dynamics";
+import { getOrganizationRequirements, updateDB, getRequirementName } from "../data/dynamics";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
@@ -147,46 +147,55 @@ class CompanyView extends React.Component {
   };
 
   buttonStyleData = () => {
-    if (this.state.showData){
-      return({background: '#e3e3e', width:'100%'})
+    if (this.state.showData) {
+      return ({ background: '#e3e3e', width: '100%' })
     }
-    else if(this.state.showReview){
-      return({width:'100%'})
+    else if (this.state.showReview) {
+      return ({ width: '100%' })
     }
   }
 
   buttonStyleReview = () => {
-    if (this.state.showReview){
-      return({background: '#e3e3e', width:'100%'})
+    if (this.state.showReview) {
+      return ({ background: '#e3e3e', width: '100%' })
     }
-    else if(this.state.showData){
-      return({width:'100%'})
+    else if (this.state.showData) {
+      return ({ width: '100%' })
     }
   }
 
+  thisRequirementName = () => {
+    let requirementName;
+    getRequirementName(this.state.requirement._new_fsc_requirment_type_per_coc_scenario_value).then(data => {
+      console.log(data.value[0].fsc_standard_title)
+      requirementName = data.value[0].fsc_standard_title;
+    })
+    return requirementName;
+  }
+
   render() {
-    
+
     const { classes } = this.props;
     return (
       <>
         <Container component="main" maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Button onClick={this.props.handleCompanyClose} style={{background: '#e3e3e'}}>Back</Button>
+              <Button onClick={this.props.handleCompanyClose} style={{ background: '#e3e3e' }}>Back</Button>
               <div className={classes.dataDisplay}>
                 <Grid container spacing={3}>
                   <Grid item xs>
                     <Button onClick={this.showData} style={{
-                      background: this.state.showData ? 'white': '#e3e3e',
-                      width:'100%'
+                      background: this.state.showData ? 'white' : '#e3e3e',
+                      width: '100%'
                     }} key={this.state.showData}>
                       Data
                     </Button>
                   </Grid>
                   <Grid item xs>
                     <Button onClick={this.showReview} style={{
-                      background: this.state.showReview ? 'white': '#e3e3e',
-                      width:'100%'
+                      background: this.state.showReview ? 'white' : '#e3e3e',
+                      width: '100%'
                     }} key={this.state.showReview}>
                       Review
                     </Button>
@@ -217,10 +226,11 @@ class CompanyView extends React.Component {
                   <>
                     <h1>Review</h1>
                     <h4>Percentage Flagged: {this.state.percentageFlagged}</h4>
+                    <h2>Flags: </h2>
                     <ul>
                       {this.state.organizationRequirements.map(requirement => {
                         return requirement.new_requirement_flag ? (<>
-                          Hi
+                          <h4>{`${this.thisRequirementName}: ${requirement.new_requirement_notes}`}</h4>
                         </>) : (<></>)
                       })}
                     </ul>

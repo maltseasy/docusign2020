@@ -194,15 +194,19 @@ export default class WebMapView extends React.Component {
               showOpacitySlider: true,
               layers: [
                 {
+                  title: "Travel Advisories",
                   layer: covidTravelLayer,
                 },
                 {
+                  title: "COVID-19 Cases",
                   layer: covidCasesLayer,
                 },
                 {
+                  title: "Corruption Perception Index",
                   layer: corruptionIndexLayer,
                 },
                 {
+                  title: "Deforestation Tree Loss Clusters",
                   layer: deforestationLayer,
                 },
               ],
