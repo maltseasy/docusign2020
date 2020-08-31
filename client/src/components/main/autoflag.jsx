@@ -3,6 +3,7 @@ import cpiData from '../data/cpi2019.json';
 import countryData from '../data/countries.json';
 import { getCompanySites } from '../data/dynamics';
 import { getCountry } from '../logic/geocoding';
+import Typography from "@material-ui/core/Typography";
 
 const AutoFlags = (props) => {
 
@@ -30,7 +31,7 @@ const AutoFlags = (props) => {
     }, [props]);
 
     return (
-        flags.map(flag => <li style={{ color: "red" }}><h4 style={{ color: "red" }}>Automatic flag: {flag}</h4></li>)
+        flags.map(flag => <li style={{ color: "red" }}><Typography style={{ fontSize: "1.2rem", marginBottom: 5,color:"red" }}>Automatic flag: {flag}</Typography></li>)
     )
 }
 

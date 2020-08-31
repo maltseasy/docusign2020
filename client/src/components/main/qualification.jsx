@@ -171,7 +171,7 @@ class Qualification extends React.Component {
                     
                     <TableRow key={company.name} style={{ width: "100%" }}>
                         <TableCell
-                          style={{ width: "100%", fontSize: 14, height:'100%' }}
+                          style={{ width: "100%", fontSize: 16, height:'100%' }}
                           align="left"
                           onClick={() => this.handleCompanyView(company, index)}
                           className="hvr-grow"
@@ -179,7 +179,7 @@ class Qualification extends React.Component {
                           {company.name}
                         </TableCell>
                         
-                      <TableCell align="left" style={{height:'100%'}}>
+                      <TableCell align="left" style={{height:'100%', fontSize: 16}}>
                         {`${organizationType(company.fsc_organizationtype)}`}
                       </TableCell>
                       
