@@ -9,31 +9,31 @@ const cron = require("node-cron");
 
 // Insert API Routes below
 const session = require('express-session')  // https://github.com/expressjs/session
-    , cookieParser = require('cookie-parser')
-    , MemoryStore = require('memorystore')(session) // https://github.com/roccomuso/memorystore
-    , DSAuthCodeGrant = require('./lib/DSAuthCodeGrant')
-    , passport = require('passport')
-    , DocusignStrategy = require('passport-docusign')
-    , dsConfig = require('./config/index.js').config
-    , commonControllers = require('./lib/commonControllers')
-    , flash = require('express-flash')
-    , helmet = require('helmet') // https://expressjs.com/en/advanced/best-practice-security.html
-    , moment = require('moment')
-    , csrf = require('csurf') // https://www.npmjs.com/package/csurf
-    , dataSharing = require('./lib/dataSharingEmbeddedSigning')
-    , declaration = require('./lib/declarationEmbeddedSigning')
-    , cors = require('cors')
-    ;
+  , cookieParser = require('cookie-parser')
+  , MemoryStore = require('memorystore')(session) // https://github.com/roccomuso/memorystore
+  , DSAuthCodeGrant = require('./lib/DSAuthCodeGrant')
+  , passport = require('passport')
+  , DocusignStrategy = require('passport-docusign')
+  , dsConfig = require('./config/index.js').config
+  , commonControllers = require('./lib/commonControllers')
+  , flash = require('express-flash')
+  , helmet = require('helmet') // https://expressjs.com/en/advanced/best-practice-security.html
+  , moment = require('moment')
+  , csrf = require('csurf') // https://www.npmjs.com/package/csurf
+  , dataSharing = require('./lib/dataSharingEmbeddedSigning')
+  , declaration = require('./lib/declarationEmbeddedSigning')
+  , cors = require('cors')
+  ;
 
 
 const PORT = process.env.PORT || 5000
-    , HOST = process.env.HOST || 'localhost'
-    , max_session_min = 180
-    , csrfProtection = csrf({ cookie: true })
-    ;
+  , HOST = process.env.HOST || 'localhost'
+  , max_session_min = 180
+  , csrfProtection = csrf({ cookie: true })
+  ;
 
 let hostUrl = 'http://' + HOST + ':' + PORT
-if (dsConfig.appUrl != '' && dsConfig.appUrl != '{APP_URL}') {hostUrl = dsConfig.appUrl}
+if (dsConfig.appUrl != '' && dsConfig.appUrl != '{APP_URL}') { hostUrl = dsConfig.appUrl }
 
 const app = express();
 
@@ -47,12 +47,13 @@ app.use(helmet())
   .use(session({
     secret: dsConfig.sessionSecret,
     name: 'ds-launcher-session',
-    cookie: {maxAge: max_session_min * 60000},
+    cookie: { maxAge: max_session_min * 60000 },
     saveUninitialized: true,
     resave: true,
     store: new MemoryStore({
-        checkPeriod: 86400000 // prune expired entries every 24h
-  })}))
+      checkPeriod: 86400000 // prune expired entries every 24h
+    })
+  }))
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.urlencoded({ extended: true }))
@@ -61,104 +62,129 @@ app.use(helmet())
     res.locals.session = req.session;
     res.locals.dsConfig = { ...dsConfig };
     res.locals.hostUrl = hostUrl; // Used by DSAuthCodeGrant#logout
-    next()})) // Send user info to views
+    next()
+  })) // Send user info to views
   .use(flash())
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   // Add an instance of DSAuthCodeGrant to req
   .use((req, res, next) => {
-      req.dsAuthCodeGrant = new DSAuthCodeGrant(req);
-      req.dsAuth = req.dsAuthCodeGrant;
-      next()
+    req.dsAuthCodeGrant = new DSAuthCodeGrant(req);
+    req.dsAuth = req.dsAuthCodeGrant;
+    next()
   })
 
 app.get('/ds/login', commonControllers.login)
-.get('/ds/callback', () => {
-  [dsLoginCB1, dsLoginCB2]
-  // sessionStorage.setItem("docusign_loggedin", true);
-}) // OAuth callbacks. See below
-.get('/ds/mustAuthenticate', commonControllers.mustAuthenticateController)
-.get('/ds-return', (req) => {
-  // sessionStorage.setItem("docusign_loggedin", true);
-  commonControllers.returnController
-  if(req.query.event==="signing_complete"){
-    request({uri: "http://localhost:3000/frontendsignedin",method:"GET"}, function (error,response){
-      if(error) throw new Error(error);
+  .get('/ds/callback', () => {
+    [dsLoginCB1, dsLoginCB2]
+    // sessionStorage.setItem("docusign_loggedin", true);
+  }) // OAuth callbacks. See below
+  .get('/ds/mustAuthenticate', commonControllers.mustAuthenticateController)
+  .get('/ds-return', (req) => {
+    // sessionStorage.setItem("docusign_loggedin", true);
+    commonControllers.returnController
+    if (req.query.event === "signing_complete") {
+      request({ uri: "http://localhost:3000/frontendsignedin", method: "GET" }, function (error, response) {
+        if (error) throw new Error(error);
 
-      console.log(response);
-    })
-  }
-})
+        console.log(response);
+      })
+    }
+  })
 
-.use(csrf({ cookie: true })) // CSRF protection for the following routes
-.get('/dataSharing', dataSharing.getController)
-.post('/dataSharing', dataSharing.createController)
-.get('/declaration', declaration.getController)
-.post('/declaration', declaration.createController)
-.get('/dynamicsLogin', commonControllers.dynamicsLogin )
-.post('/refresh', commonControllers.refreshTokenDynamics)
-.get("/geocode", commonControllers.geoCode)
-;
+  .use(csrf({ cookie: true })) // CSRF protection for the following routes
+  .get('/dataSharing', dataSharing.getController)
+  .post('/dataSharing', dataSharing.createController)
+  .get('/declaration', declaration.getController)
+  .post('/declaration', declaration.createController)
+  .get('/dynamicsLogin', commonControllers.dynamicsLogin)
+  .post('/refresh', commonControllers.refreshTokenDynamics)
+  .get("/geocode", commonControllers.geoCode)
+  ;
 
-function dsLoginCB1 (req, res, next) {req.dsAuthCodeGrant.oauth_callback1(req, res, next)}
-function dsLoginCB2 (req, res, next) {req.dsAuthCodeGrant.oauth_callback2(req, res, next)}
+function dsLoginCB1(req, res, next) { req.dsAuthCodeGrant.oauth_callback1(req, res, next) }
+function dsLoginCB2(req, res, next) { req.dsAuthCodeGrant.oauth_callback2(req, res, next) }
 
 /* Start the web server */
 if (dsConfig.dsClientId && dsConfig.dsClientId !== '{CLIENT_ID}' &&
-    dsConfig.dsClientSecret && dsConfig.dsClientSecret !== '{CLIENT_SECRET}') {
-    
-    const port = process.env.PORT || 5000;
+  dsConfig.dsClientSecret && dsConfig.dsClientSecret !== '{CLIENT_SECRET}') {
 
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-      cron.schedule("*/45 * * * *", function() {
-        if (timeDiff < 0) {
-          console.log("requesting new token!");
-  
-          request(options, function (error, response) {
-            if (error) throw new Error(error);
-  
-            console.log(response.body);
-            var newTime = new Date(Date.now() + 3600000);
-            var NewAccessKey = { newTime: newTime };
-            NewAccessKey.data = JSON.parse(response.body);
-  
-            console.log(newTime, expTime, now);
-  
-            fs.writeFile(
-              "./client/src/components/data/access_key.json",
-              JSON.stringify(NewAccessKey),
-              "utf8",
-              function (err) {
-                if (err) throw err;
-                console.log("complete");
-              }
-            );
-          });
-        }
-      })      
-    });
+  const port = process.env.PORT || 5000;
 
-    console.log(`Listening on ${PORT}`);
-    console.log(`Ready! Open ${hostUrl}`);
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+
+    if (timeDiff < 0) {
+      console.log("requesting new token!");
+
+      request(options, function (error, response) {
+        if (error) throw new Error(error);
+
+        console.log(response.body);
+        var newTime = new Date(Date.now() + 3600000);
+        var NewAccessKey = { newTime: newTime };
+        NewAccessKey.data = JSON.parse(response.body);
+
+        console.log(newTime, expTime, now);
+
+        fs.writeFile(
+          "./client/src/components/data/access_key.json",
+          JSON.stringify(NewAccessKey),
+          "utf8",
+          function (err) {
+            if (err) throw err;
+            console.log("complete");
+          }
+        );
+      });
+    }
+
+    cron.schedule("*/45 * * * *", function () {
+        console.log("requesting new token!");
+
+        request(options, function (error, response) {
+          if (error) throw new Error(error);
+
+          console.log(response.body);
+          var newTime = new Date(Date.now() + 3600000);
+          var NewAccessKey = { newTime: newTime };
+          NewAccessKey.data = JSON.parse(response.body);
+
+          console.log(newTime, expTime, now);
+
+          fs.writeFile(
+            "./client/src/components/data/access_key.json",
+            JSON.stringify(NewAccessKey),
+            "utf8",
+            function (err) {
+              if (err) throw err;
+              console.log("complete");
+            }
+          );
+        });
+    })
+  });
+
+  console.log(`Listening on ${PORT}`);
+  console.log(`Ready! Open ${hostUrl}`);
 } else {
   console.log(`PROBLEM: You need to set the clientId (Integrator Key), and perhaps other settings as well. 
 You can set them in the configuration file config/appsettings.json or set environment variables.\n`);
   process.exit(); // We're not using exit code of 1 to avoid extraneous npm messages.
 }
 
-passport.serializeUser  (function(user, done) {done(null, user)});
-passport.deserializeUser(function(obj,  done) {done(null, obj)});
+passport.serializeUser(function (user, done) { done(null, user) });
+passport.deserializeUser(function (obj, done) { done(null, obj) });
 
 // Configure passport for DocusignStrategy
 let docusignStrategy = new DocusignStrategy({
-    production: dsConfig.production,
-    clientID: dsConfig.dsClientId,
-    clientSecret: dsConfig.dsClientSecret,
-    callbackURL: hostUrl + '/ds/callback',
-    state: true // automatic CSRF protection.
-    // See https://github.com/jaredhanson/passport-oauth2/blob/master/lib/state/session.js
-  },
+  production: dsConfig.production,
+  clientID: dsConfig.dsClientId,
+  clientSecret: dsConfig.dsClientSecret,
+  callbackURL: hostUrl + '/ds/callback',
+  state: true // automatic CSRF protection.
+  // See https://github.com/jaredhanson/passport-oauth2/blob/master/lib/state/session.js
+},
   function _processDsResult(accessToken, refreshToken, params, profile, done) {
     // The params arg will be passed additional parameters of the grant.
     // See https://github.com/jaredhanson/passport-oauth2/pull/84
@@ -180,8 +206,8 @@ let docusignStrategy = new DocusignStrategy({
  */
 if (!dsConfig.allowSilentAuthentication) {
   // See https://stackoverflow.com/a/32877712/64904
-  docusignStrategy.authorizationParams = function(options) {
-    return {prompt: 'login'};
+  docusignStrategy.authorizationParams = function (options) {
+    return { prompt: 'login' };
   }
 }
 passport.use(docusignStrategy);

@@ -42,6 +42,7 @@ class CompanyView extends React.Component {
         covidCases: false,
         deforestation: false,
       },
+      requirementTitles:{},
     };
   }
 
@@ -65,6 +66,15 @@ class CompanyView extends React.Component {
           if (requirement.new_requirement_flag) {
             flagged = flagged + 1;
           }
+          getRequirementName(requirement._new_fsc_requirment_type_per_coc_scenario_value).then(data => {
+            this.setState({
+              requirementTitles: {
+                ...this.state.requirementTitles,
+                [requirement._new_fsc_requirment_type_per_coc_scenario_value]: `${data.value[0].fsc_standard_title}` ,
+              }
+              
+            })
+          })
         })
         console.log(flagged);
         console.log(this.state.organizationRequirements.length);
@@ -230,7 +240,7 @@ class CompanyView extends React.Component {
                     <ul>
                       {this.state.organizationRequirements.map(requirement => {
                         return requirement.new_requirement_flag ? (<>
-                          <h4>{`${this.thisRequirementName}: ${requirement.new_requirement_notes}`}</h4>
+                          <h4>{`${this.state.requirementTitles[requirement._new_fsc_requirment_type_per_coc_scenario_value]}: ${requirement.new_requirement_notes}`}</h4>
                         </>) : (<></>)
                       })}
                     </ul>
