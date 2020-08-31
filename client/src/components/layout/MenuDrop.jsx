@@ -67,15 +67,13 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <a href="/pre-assessment">
           <StyledMenuItem >
             <ListItemIcon>
               <DraftsIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText primary="App 1" />
           </StyledMenuItem>
-        </a>
-        <a href="/qualification">
+        <a href="/">
         <StyledMenuItem>
           <ListItemIcon>
             <DraftsIcon fontSize="small" />

@@ -4,6 +4,7 @@ const path = require("path");
 var request = require("request");
 let AccessKey = require("./client/src/components/data/access_key.json");
 var fs = require("fs");
+const cron = require("node-cron");
 // const eg001 = require('./embeddedsigning');
 
 // Insert API Routes below
@@ -99,49 +100,6 @@ app.get('/ds/login', commonControllers.login)
 .get("/geocode", commonControllers.geoCode)
 ;
 
-// app.get("/callback", (req) => {
-//   console.log(req.query.code);
-//   if (req.query.code !== "undefined") {
-//     console.log(req.query.code);
-//     var formBody = "grant_type=authorization_code&code=" + req.query.code;
-//     var options_docutoken = {
-//       uri: "https://account-d.docusign.com/oauth/token",
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//         Authorization:
-//           "Basic ZTQzYjFhM2QtOTFhMy00ZWQyLTk2OWQtZDAwZGRhMzE4NWJhOmNlZWNhNDZhLTJkMjItNGQ4OC04MWM3LTgzNTMzMjNlNjg0NQ==",
-//       },
-//       body: formBody,
-//     };
-//     request(options_docutoken, function (error, response) {
-//       if (error) throw new Error(error);
-
-//       var options_getUser = {
-//         uri:"https://account-d.docusign.com/oauth/userinfo",
-//         method: "GET",
-//         headers: {
-//           "Authorization":
-//             "Bearer " + response.body.access_token,
-//         }};
-//         request(options_getUser, function(error, response){
-//           if (error) throw new Error(error);
-
-//           console.log(response.body);
-//         })
-//     });
-//   }
-// })
-// .get('/eg001', eg001.getController)
-// .post('/eg001', eg001.createController)
-// .get('/ping',(req)=>console.log(req))
-// .get('/return',(req)=>console.log(req))
-// .post('/ping',(req,res)=>console.log(req,res))
-// .post('/return',(req,res)=>console.log(req,res))
-
-// #!/usr/bin/env node
-
-
 function dsLoginCB1 (req, res, next) {req.dsAuthCodeGrant.oauth_callback1(req, res, next)}
 function dsLoginCB2 (req, res, next) {req.dsAuthCodeGrant.oauth_callback2(req, res, next)}
 
@@ -153,31 +111,32 @@ if (dsConfig.dsClientId && dsConfig.dsClientId !== '{CLIENT_ID}' &&
 
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
-
-      if (timeDiff < 0) {
-        console.log("requesting new token!");
-
-        request(options, function (error, response) {
-          if (error) throw new Error(error);
-
-          console.log(response.body);
-          var newTime = new Date(Date.now() + 3600000);
-          var NewAccessKey = { newTime: newTime };
-          NewAccessKey.data = JSON.parse(response.body);
-
-          console.log(newTime, expTime, now);
-
-          fs.writeFile(
-            "./client/src/components/data/access_key.json",
-            JSON.stringify(NewAccessKey),
-            "utf8",
-            function (err) {
-              if (err) throw err;
-              console.log("complete");
-            }
-          );
-        });
-      }
+      cron.schedule("*/45 * * * *", function() {
+        if (timeDiff < 0) {
+          console.log("requesting new token!");
+  
+          request(options, function (error, response) {
+            if (error) throw new Error(error);
+  
+            console.log(response.body);
+            var newTime = new Date(Date.now() + 3600000);
+            var NewAccessKey = { newTime: newTime };
+            NewAccessKey.data = JSON.parse(response.body);
+  
+            console.log(newTime, expTime, now);
+  
+            fs.writeFile(
+              "./client/src/components/data/access_key.json",
+              JSON.stringify(NewAccessKey),
+              "utf8",
+              function (err) {
+                if (err) throw err;
+                console.log("complete");
+              }
+            );
+          });
+        }
+      })      
     });
 
     console.log(`Listening on ${PORT}`);
@@ -188,13 +147,6 @@ You can set them in the configuration file config/appsettings.json or set enviro
   process.exit(); // We're not using exit code of 1 to avoid extraneous npm messages.
 }
 
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete DocuSign profile is serialized
-//   and deserialized.
 passport.serializeUser  (function(user, done) {done(null, user)});
 passport.deserializeUser(function(obj,  done) {done(null, obj)});
 

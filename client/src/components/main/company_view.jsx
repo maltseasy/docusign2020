@@ -143,25 +143,51 @@ class CompanyView extends React.Component {
       console.log("hi")
       return `${Math.round(flagged / this.state.organizationRequirements.length * 10000) / 100}%`
     })
+    this.forceUpdate();
+  };
+
+  buttonStyleData = () => {
+    if (this.state.showData){
+      return({background: '#e3e3e', width:'100%'})
+    }
+    else if(this.state.showReview){
+      return({width:'100%'})
+    }
+  }
+
+  buttonStyleReview = () => {
+    if (this.state.showReview){
+      return({background: '#e3e3e', width:'100%'})
+    }
+    else if(this.state.showData){
+      return({width:'100%'})
+    }
   }
 
   render() {
+    
     const { classes } = this.props;
     return (
       <>
         <Container component="main" maxWidth="lg">
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Button onClick={this.props.handleCompanyClose}>Back</Button>
+            <Grid item xs={12}>
+              <Button onClick={this.props.handleCompanyClose} style={{background: '#e3e3e'}}>Back</Button>
               <div className={classes.dataDisplay}>
                 <Grid container spacing={3}>
                   <Grid item xs>
-                    <Button style={{ width: "100%" }} onClick={this.showData}>
+                    <Button onClick={this.showData} style={{
+                      background: this.state.showData ? 'white': '#e3e3e',
+                      width:'100%'
+                    }} key={this.state.showData}>
                       Data
                     </Button>
                   </Grid>
                   <Grid item xs>
-                    <Button style={{ width: "100%" }} onClick={this.showReview}>
+                    <Button onClick={this.showReview} style={{
+                      background: this.state.showReview ? 'white': '#e3e3e',
+                      width:'100%'
+                    }} key={this.state.showReview}>
                       Review
                     </Button>
                   </Grid>
@@ -173,20 +199,18 @@ class CompanyView extends React.Component {
                     <h3>
                       FSC License Number: {this.props.company.fsc_licensenumber}
                     </h3>
-                    <ul>
-                      {this.state.organizationRequirements &&
-                        this.state.organizationRequirements.map(
-                          (dataValue, index) => (
-                            <ListData
-                              data={dataValue}
-                              // handleFlag={this.handleFlag}
-                              // handleNote={this.handleNote}
-                              handleSave={this.handleSaveOR}
-                              index={index}
-                            />
-                          )
-                        )}
-                    </ul>
+                    {this.state.organizationRequirements &&
+                      this.state.organizationRequirements.map(
+                        (dataValue, index) => (
+                          <ListData
+                            data={dataValue}
+                            // handleFlag={this.handleFlag}
+                            // handleNote={this.handleNote}
+                            handleSave={this.handleSaveOR}
+                            index={index}
+                          />
+                        )
+                      )}
                   </>
                 ) : null}
                 {this.state.showReview ? (
@@ -206,42 +230,7 @@ class CompanyView extends React.Component {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              {/* <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={this.state.mapLayerToggles.covidCases}
-                      onChange={this.handleCovidCasesToggle}
-                      name="covidCases"
-                      color="primary"
-                    />
-                  }
-                  label="COVID-19 Cases"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={this.state.mapLayerToggles.covidTravelRisks}
-                      onChange={this.handleCovidTravelToggle}
-                      name="covidTravelRisks"
-                      color="primary"
-                    />
-                  }
-                  label="COVID-19 Travel Risks"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={this.state.mapLayerToggles.deforestation}
-                      onChange={this.handleDeforestationToggle}
-                      name="deforestation"
-                      color="primary"
-                    />
-                  }
-                  label="Deforestation Regions"
-                />
-              </FormGroup> */}
+            <Grid item xs={12}>
               <WebMapView
                 data={this.state.mapData}
                 id={this.props.company.accountid}

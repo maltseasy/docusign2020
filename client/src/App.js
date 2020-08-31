@@ -35,7 +35,7 @@ class App extends Component {
             <div className="App">
             <NavBar/>
               <Switch>
-                <Route path="/qualification" component={Qualifaction} />
+                <Route path="/" component={Qualifaction} />
                 <Route path="/callback" component={DocusignCallback} />
               </Switch>
               
