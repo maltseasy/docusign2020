@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import WebMapView from "./webmapview";
@@ -24,6 +24,13 @@ const useStyles = (theme) => ({
       "0 1px 2px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.07), 0 4px 8px rgba(0,0,0,0.07), 0 8px 16px rgba(0,0,0,0.07), 0 16px 32px rgba(0,0,0,0.07), 0 32px 64px rgba(0,0,0,0.07)",
   },
 });
+
+const CompanyView = (props) => {
+  const [mapData, setMapData] = useState(null);
+  const [showData, setShowData] = useState(true);
+  const [showReview, setShowReview] = useState(false);
+  const organizationRequirements
+}
 
 class CompanyView extends React.Component {
   constructor(props) {
