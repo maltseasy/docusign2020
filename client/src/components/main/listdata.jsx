@@ -32,13 +32,30 @@ const ListData = (props) => {
       ...currentData,
       flagged: !currentData.flagged,
     });
-    props.handleFlag(currentData, props.index);
+    // props.handleFlag(currentData, props.index);
   };
+
+  const handleNote = (e) => {
+    console.log(currentData);
+    setCurrentData({
+      ...currentData,
+      notes: e.target.value,
+    });
+    // props.handleNote(e.target.value,props.index);
+  }
+
+  const handleSave = (e) => {
+    console.log(props.data);
+    props.handleSave(currentData,props.index);
+  }
 
   return (
     <>
       <Grid container spacing={1}>
         <Grid item xs={12} sm={6}>
+          {currentData !== props.data ? (
+            <h5 color="red">You have unsaved changes!</h5>
+          ):null}
           {requirementInfo ? (
             <>
               <h2>{requirementInfo.fsc_standard_title}</h2>
@@ -55,7 +72,7 @@ const ListData = (props) => {
               variant="outlined" 
               label="Notes"
               value={currentData.notes}
-              onChange={props.handleNote}
+              onChange={handleNote}
             />
             <Button onClick={handleFlag}>
               {currentData.flagged ? <Flag /> : <FlagOutlined />}
@@ -63,6 +80,7 @@ const ListData = (props) => {
           </div>
         </Grid>
       </Grid>
+      <Button onClick={handleSave}>Save</Button>
     </>
   );
 };

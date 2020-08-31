@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import WebMapView from "./webmapview";
-import WebMapView2 from './webmapviewtest';
+import WebMapView2 from "./webmapviewtest";
 import ListData from "./listdata.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -10,7 +10,7 @@ import { getOrganizationRequirements } from "../data/dynamics";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import {DocusignRequest} from "./docusign";
+import { DocusignRequest } from "./docusign";
 
 const useStyles = (theme) => ({
   dataDisplay: {
@@ -46,12 +46,11 @@ class CompanyView extends React.Component {
 
   handleFlag = (e, index) => {
     console.log(e, index);
-      };
+  };
 
   handleNote = (e, index) => {
-
     console.log(e, index);
-  }
+  };
 
   componentWillMount() {
     // retrieve list or organization requirements
@@ -117,6 +116,10 @@ class CompanyView extends React.Component {
       },
     });
   };
+  handleSaveOR = (e,index) => {
+    this.state.organizationRequirements[index] = e;
+    this.forceUpdate()
+  }
 
   render() {
     const { classes } = this.props;
@@ -142,21 +145,20 @@ class CompanyView extends React.Component {
 
                 {this.state.showData ? (
                   <>
-                    
                     <h1>{this.props.company.name}</h1>
                     <h3>
                       FSC License Number: {this.props.company.fsc_licensenumber}
                     </h3>
                     <ul>
-                      
                       {this.state.organizationRequirements &&
                         this.state.organizationRequirements.map(
                           (dataValue, index) => (
                             <ListData
                               data={dataValue}
-                              handleFlag={this.handleFlag}
-
-                              handleNote={this.handleNote}                              index={index}
+                              // handleFlag={this.handleFlag}
+                              // handleNote={this.handleNote}
+                              handleSave={this.handleSaveOR}
+                              index={index}
                             />
                           )
                         )}
@@ -166,7 +168,7 @@ class CompanyView extends React.Component {
                 {this.state.showReview ? (
                   <>
                     <h1>Review</h1>
-                    <DocusignRequest/>
+                    <DocusignRequest />
                   </>
                 ) : null}
               </div>

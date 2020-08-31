@@ -1,7 +1,4 @@
-// exports.docOptions = require('./documentOptions.json');
-// exports.docNames = require('./documentNames.json');
 const settings = require('./appsettings.json');
-// exports.github = require('./github.json');
 
 const dsOauthServer = settings.production
   ? 'https://account.docusign.com'
