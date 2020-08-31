@@ -306,7 +306,7 @@ export default class WebMapView extends React.Component {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={3}>
             <div className="webmap-controls" style={{ paddingTop: 10 }}>
-              <Accordion style={{ borderRadius: 5 }}>
+              <Accordion style={{ borderRadius: 5, paddingBottom: 10 }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Basemap Gallery</Typography>
                 </AccordionSummary>
