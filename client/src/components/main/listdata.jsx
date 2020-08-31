@@ -25,12 +25,12 @@ const ListData = (props) => {
   const handleFlag = () => {
     console.log({
       ...currentData,
-      flagged: !currentData.flagged,
+      new_requirement_flag: !currentData.new_requirement_flag,
     });
 
     setCurrentData({
       ...currentData,
-      flagged: !currentData.flagged,
+      new_requirement_flag: !currentData.new_requirement_flag,
     });
     // props.handleFlag(currentData, props.index);
   };
@@ -39,7 +39,7 @@ const ListData = (props) => {
     console.log(currentData);
     setCurrentData({
       ...currentData,
-      notes: e.target.value,
+      new_requirement_notes: e.target.value,
     });
     // props.handleNote(e.target.value,props.index);
   }
@@ -71,11 +71,11 @@ const ListData = (props) => {
             <TextField 
               variant="outlined" 
               label="Notes"
-              value={currentData.notes}
+              value={currentData.new_requirement_notes}
               onChange={handleNote}
             />
             <Button onClick={handleFlag}>
-              {currentData.flagged ? <Flag /> : <FlagOutlined />}
+              {currentData.new_requirement_flag ? <Flag /> : <FlagOutlined />}
             </Button>
           </div>
         </Grid>
