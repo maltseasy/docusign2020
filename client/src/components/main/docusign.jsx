@@ -41,8 +41,16 @@ export class DocusignRequest extends React.Component {
   render() {
     return (
       <>
-        <Button onClick={this.handleClickLogin} style={{height: "50px"}}>Sign In to Docusign</Button>
-        <Button onClick={this.handleCeremony} style={{height: "50px"}}>Sign With Docusign</Button>
+        <Button onClick={this.handleClickLogin} style={{
+                        margin: 10,
+                        borderRadius: 5,
+                        padding: 20,
+                      }}>Sign In to Docusign</Button>
+        <Button onClick={this.handleCeremony} style={{
+                        margin: 10,
+                        borderRadius: 5,
+                        padding: 20,
+                      }}>Sign With Docusign</Button>
       </>
     )
     

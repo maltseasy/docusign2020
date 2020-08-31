@@ -7,6 +7,7 @@ import { FlagOutlined } from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import { getRequirementName } from "../data/dynamics";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
 
 const ListData = (props) => {
@@ -72,11 +73,13 @@ const ListData = (props) => {
           <Grid item xs={12} sm={6}>
             {requirementInfo ? (
               <>
-                <h2>{requirementInfo.fsc_standard_title}</h2>
-                <p style={{ fontSize: "1rem" }}>
+                <Typography
+                        style={{ fontSize: "1.5rem", fontStyle: "bold", marginBottom: 20 }}
+                      >{requirementInfo.fsc_standard_title}</Typography>
+                <Typography style={{ fontSize: "1rem", marginBottom: 20 }}>
                   {requirementInfo.fsc_standard_comments}
-                </p>
-                <h5>{cocInput}</h5>
+                </Typography>
+                <Typography  style={{ fontSize: "1rem", marginBottom: 20 }}>{cocInput}</Typography>
               </>
             ) : (
               <></>

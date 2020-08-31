@@ -6,6 +6,7 @@ import WebMapView2 from "./webmapviewtest";
 import ListData from "./listdata.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import {
   getOrganizationRequirements,
   updateDB,
@@ -245,10 +246,19 @@ class CompanyView extends React.Component {
 
                 {this.state.showData ? (
                   <>
-                    <h1>{this.props.company.name}</h1>
-                    <h3>
+                    <Typography style={{ fontSize: "2.2rem", fontStyle: "bold", marginBottom: 15, marginTop:15 }}>
+                      {this.props.company.name}
+                    </Typography>
+                    <Typography
+                      style={{
+                        fontSize: "1rem",
+                        fontStyle: "oblique",
+                        marginTop: 5,
+                        marginBottom: 5,
+                      }}
+                    >
                       FSC License Number: {this.props.company.fsc_licensenumber}
-                    </h3>
+                    </Typography>
                     {this.state.organizationRequirements &&
                       this.state.organizationRequirements.map(
                         (dataValue, index) => (
@@ -265,9 +275,20 @@ class CompanyView extends React.Component {
                 ) : null}
                 {this.state.showReview ? (
                   <>
-                    
-                      <h1>Review</h1>
-                      <Paper
+                    <Typography style={{ fontSize: "2.2rem", fontStyle: "bold" , marginBottom: 15, marginTop:15 }}>
+                      Review
+                    </Typography>
+                    <Typography
+                      style={{
+                        fontSize: "1rem",
+                        fontStyle: "oblique",
+                        marginTop: 5,
+                        marginBottom: 5,
+                      }}
+                    >
+                      Percentage Flagged: {this.state.percentageFlagged}
+                    </Typography>
+                    <Paper
                       style={{
                         marginTop: 10,
                         display: "flex",
@@ -280,29 +301,43 @@ class CompanyView extends React.Component {
                           "0 1px 2px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.07), 0 4px 8px rgba(0,0,0,0.07), 0 8px 16px rgba(0,0,0,0.07), 0 16px 32px rgba(0,0,0,0.07), 0 32px 64px rgba(0,0,0,0.07)",
                       }}
                     >
-                      <h4>
-                        Percentage Flagged: {this.state.percentageFlagged}
-                      </h4>
-                      <h2>Flags: </h2>
-                        {this.state.organizationRequirements.map(
-                          (requirement) => {
-                            return requirement.new_requirement_flag ? (
-                              <>
-                                <p style={{}}>{`${
+                      <Typography
+                        style={{ fontSize: "1.5rem", fontStyle: "bold" }}
+                      >
+                        Flagged Notes:{" "}
+                      </Typography>
+                      {this.state.organizationRequirements.map(
+                        (requirement) => {
+                          return requirement.new_requirement_flag ? (
+                            <>
+                              <Typography
+                                style={{ fontSize: "1.2rem", margin: 10 }}
+                              >
+                                •{" "}
+                                {`${
                                   this.state.requirementTitles[
                                     requirement
                                       ._new_fsc_requirment_type_per_coc_scenario_value
                                   ]
-                                }: ${requirement.new_requirement_notes}`}</p>
-                              </>
-                            ) : (
-                              <></>
-                            );
-                          }
-                        )}
+                                }:`}
+                              </Typography>
+                              <Typography
+                                style={{
+                                  fontSize: "0.9rem",
+                                  marginLeft: 20,
+                                  fontStyle: "italic",
+                                }}
+                              >
+                                {requirement.new_requirement_notes}
+                              </Typography>
+                            </>
+                          ) : (
+                            <></>
+                          );
+                        }
+                      )}
                       <DocusignRequest />
                     </Paper>
-                    
                   </>
                 ) : null}
               </div>
