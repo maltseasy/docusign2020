@@ -146,7 +146,7 @@ class CompanyView extends React.Component {
       <>
         <Container component="main" maxWidth="lg">
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <Button onClick={this.props.handleCompanyClose} style={{background: '#e3e3e'}}>Back</Button>
               <div className={classes.dataDisplay}>
                 <Grid container spacing={3}>
@@ -197,42 +197,7 @@ class CompanyView extends React.Component {
               </div>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              {/* <FormGroup row>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={this.state.mapLayerToggles.covidCases}
-                      onChange={this.handleCovidCasesToggle}
-                      name="covidCases"
-                      color="primary"
-                    />
-                  }
-                  label="COVID-19 Cases"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={this.state.mapLayerToggles.covidTravelRisks}
-                      onChange={this.handleCovidTravelToggle}
-                      name="covidTravelRisks"
-                      color="primary"
-                    />
-                  }
-                  label="COVID-19 Travel Risks"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={this.state.mapLayerToggles.deforestation}
-                      onChange={this.handleDeforestationToggle}
-                      name="deforestation"
-                      color="primary"
-                    />
-                  }
-                  label="Deforestation Regions"
-                />
-              </FormGroup> */}
+            <Grid item xs={12}>
               <WebMapView
                 data={this.state.mapData}
                 id={this.props.company.accountid}
