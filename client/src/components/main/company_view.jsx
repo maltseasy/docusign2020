@@ -11,6 +11,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { DocusignRequest } from "./docusign";
+import AutoFlags from './autoflag';
 
 const useStyles = (theme) => ({
   dataDisplay: {
@@ -42,7 +43,7 @@ class CompanyView extends React.Component {
         covidCases: false,
         deforestation: false,
       },
-      requirementTitles:{},
+      requirementTitles: {},
     };
   }
 
@@ -70,9 +71,9 @@ class CompanyView extends React.Component {
             this.setState({
               requirementTitles: {
                 ...this.state.requirementTitles,
-                [requirement._new_fsc_requirment_type_per_coc_scenario_value]: `${data.value[0].fsc_standard_title}` ,
+                [requirement._new_fsc_requirment_type_per_coc_scenario_value]: `${data.value[0].fsc_standard_title}`,
               }
-              
+
             })
           })
         })
@@ -218,6 +219,7 @@ class CompanyView extends React.Component {
                     <h3>
                       FSC License Number: {this.props.company.fsc_licensenumber}
                     </h3>
+                    <h2>Organization Requirement Inputs</h2>
                     {this.state.organizationRequirements &&
                       this.state.organizationRequirements.map(
                         (dataValue, index) => (
@@ -235,15 +237,17 @@ class CompanyView extends React.Component {
                 {this.state.showReview ? (
                   <>
                     <h1>Review</h1>
-                    <h4>Percentage Flagged: {this.state.percentageFlagged}</h4>
+                    <h4>Percentage of Requirements Flagged: {this.state.percentageFlagged}</h4>
                     <h2>Flags: </h2>
                     <ul>
+                      <AutoFlags id={this.props.company.accountid} />
                       {this.state.organizationRequirements.map(requirement => {
-                        return requirement.new_requirement_flag ? (<>
+                        return requirement.new_requirement_flag ? (<li>
                           <h4>{`${this.state.requirementTitles[requirement._new_fsc_requirment_type_per_coc_scenario_value]}: ${requirement.new_requirement_notes}`}</h4>
-                        </>) : (<></>)
+                        </li>) : (<></>)
                       })}
                     </ul>
+
                     <DocusignRequest />
                   </>
                 ) : null}
