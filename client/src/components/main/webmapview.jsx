@@ -182,7 +182,11 @@ export default class WebMapView extends React.Component {
       var geoprocessor, geometryService, geometries, baseGraphics;
       geometryService = new GeometryService("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
       geoprocessor = new Geoprocessor("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
-
+      geoprocessor.setOutSpatialReference({
+        wkid: 4326
+      });
+      
+      
 
       map.on("load", () => {
         var iconPath = "M32, 2a20, 20, 0, 0, 0-20, 20c0, 18, 20, 40, 20, 40s20-22, 20-40A20, 20, 0, 0, 0, 32, 2zm0, 28a8, 8, 0, 1, 1, 8-8, 8, 8, 0, 0, 1-8, 8z";
