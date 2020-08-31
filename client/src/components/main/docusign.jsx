@@ -46,7 +46,7 @@ export class DocusignCallback extends React.Component {
 
       sessionStorage.setItem("docusign_user", getUserData);
 
-      var eSigURL = "https://account-d.docusign.com/restapi/v2/accounts/"+getUserData.accounts[0].account_id+"/brands"
+      var eSigURL = "https://account-d.docusign.com/restapi/v2/accounts/"+getUserData.accounts[0].account_id+"/brands";
 
       console.log(getUserData);
     }
@@ -60,19 +60,20 @@ export class DocusignRequest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      client_id: "c81fcda2-7535-447d-a957-6b8e7fa46fc8",
+      client_id: "e43b1a3d-91a3-4ed2-969d-d00dda3185ba",
     };
   }
 
-  handleClick = async () => {
+  handleClick = () => {
     const url =
       "https://account-d.docusign.com/oauth/auth?response_type=code&scope-signature&client_id=" +
       this.state.client_id +
-      "&redirect_uri=http://localhost:3000/callback";
+      "&redirect_uri=http://localhost:5000/callback";
+    // const url = "http://localhost:5000/callback";
     window.open(url, "_blank");
   };
 
   render() {
-    return <Button onClick={this.handleClick}>Docusign</Button>;
+    return <Button onClick={this.handleClick}>Sign In to Docusign</Button>;
   }
 }

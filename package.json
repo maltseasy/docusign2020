@@ -17,9 +17,12 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
+    "docusign-esign": "^5.6.0",
     "express": "^4.16.4",
+    "fs-extra": "^9.0.1",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.0",
+    "path": "^0.12.7",
     "react-addons-css-transition-group": "^15.6.2",
     "request": "^2.88.2",
     "validator": "^10.11.0"

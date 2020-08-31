@@ -25,14 +25,18 @@ export default class WebMapView extends React.Component {
         "esri/layers/WFSLayer",
         "esri/config",
         "esri/layers/FeatureLayer",
+        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/renderers/UniqueValueRenderer",
+        "esri/Color",
         "dojo/domReady!",
       ],
       { css: true }
-    ).then(([ArcGISMap, LayerList, InfoTemplate, WFSLayer,esriConfig,FeatureLayer]) => {
+    ).then(([ArcGISMap, LayerList, InfoTemplate, WFSLayer,esriConfig,FeatureLayer, SimpleLineSymbol, SimpleFillSymbol, UniqueValueRenderer, Color]) => {
       const map = new ArcGISMap("map", {
         basemap: "topo-vector",
         center: [this.state.sites[0].fsc_longitude, this.state.sites[0].fsc_latitude],
-        zoom: 7,
+        zoom: 3,
       });
       
       var url =
@@ -47,14 +51,26 @@ export default class WebMapView extends React.Component {
         showLabels: true,
         outFields: ["*"]
       });
-      var covidCasesLayer = new FeatureLayer("https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/ncov_cases/FeatureServer/2");
+
+      var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
+      defaultSymbol.outline.setStyle(SimpleLineSymbol.STYLE_NULL);
+      var renderer = new UniqueValueRenderer(defaultSymbol, "TravelAdvisory");
+      renderer.addValue("Avoid non-essential travel",
+        new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])));
+      renderer.addValue("Avoid non-essential travel with regional advisories",
+        new SimpleFillSymbol().setColor(new Color([0, 255, 0, 0.5])));
+      renderer.addValue("Avoid all travel",
+        new SimpleFillSymbol().setColor(new Color([0, 0, 255, 0.5])));
+      covidTravelLayer.setRenderer(renderer);
+
+      //var covidCasesLayer = new FeatureLayer("https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/ncov_cases/FeatureServer/2");
       var corruptionIndexLayer = new FeatureLayer("https://services1.arcgis.com/RTK5Unh1Z71JKIiR/arcgis/rest/services/Corruption_Perception_Index_countries_layer/FeatureServer/0");
       var deforestationLayer = new WFSLayer();
       deforestationLayer.fromJson(opts);
-
-        map.addLayer(covidTravelLayer);
-        map.addLayer(covidCasesLayer);
         map.addLayer(corruptionIndexLayer);
+        map.addLayer(covidTravelLayer);
+        //map.addLayer(covidCasesLayer);
+        
         map.addLayer(deforestationLayer);
 
       var layerList = new LayerList({
@@ -66,9 +82,9 @@ export default class WebMapView extends React.Component {
           {
             layer: covidTravelLayer,
           },
-          {
+          /*{
             layer: covidCasesLayer,
-          },
+          },*/
           {
             layer: corruptionIndexLayer,
           },
