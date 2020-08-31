@@ -6,7 +6,7 @@ import WebMapView2 from "./webmapviewtest";
 import ListData from "./listdata.jsx";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { getOrganizationRequirements } from "../data/dynamics";
+import { getOrganizationRequirements, updateDB } from "../data/dynamics";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
@@ -36,6 +36,7 @@ class CompanyView extends React.Component {
       showData: true,
       showReview: false,
       organizationRequirements: [],
+      percentageFlagged: null,
       mapLayerToggles: {
         covidTravelRisks: false,
         covidCases: false,
@@ -55,13 +56,21 @@ class CompanyView extends React.Component {
   componentWillMount() {
     // retrieve list or organization requirements
     getOrganizationRequirements(this.props.company.accountid).then((data) => {
-      data.value.forEach((element) => {
-        element.flagged = false;
-        element.notes = "";
-      });
       console.log(data.value);
       this.setState({
         organizationRequirements: data.value,
+      }, () => {
+        let flagged = 0;
+        this.state.organizationRequirements.forEach(requirement => {
+          if (requirement.new_requirement_flag) {
+            flagged = flagged + 1;
+          }
+        })
+        console.log(flagged);
+        console.log(this.state.organizationRequirements.length);
+        this.setState({
+          percentageFlagged: `${Math.round(flagged / this.state.organizationRequirements.length * 10000) / 100}%`
+        })
       });
     });
 
@@ -118,6 +127,22 @@ class CompanyView extends React.Component {
   };
   handleSaveOR = (e, index) => {
     this.state.organizationRequirements[index] = e;
+
+    console.log(e);
+    updateDB(e.new_organization_requirementid, e.new_requirement_flag, e.new_requirement_notes)
+
+    this.forceUpdate();
+  }
+
+  calculatePercentage = () => {
+    let flagged = 0;
+    this.state.organizationRequirements.forEach(requirement => {
+      if (requirement.new_requirement_flag) {
+        flagged = flagged + 1;
+      }
+      console.log("hi")
+      return `${Math.round(flagged / this.state.organizationRequirements.length * 10000) / 100}%`
+    })
     this.forceUpdate();
   };
 
@@ -191,6 +216,14 @@ class CompanyView extends React.Component {
                 {this.state.showReview ? (
                   <>
                     <h1>Review</h1>
+                    <h4>Percentage Flagged: {this.state.percentageFlagged}</h4>
+                    <ul>
+                      {this.state.organizationRequirements.map(requirement => {
+                        return requirement.new_requirement_flag ? (<>
+                          Hi
+                        </>) : (<></>)
+                      })}
+                    </ul>
                     <DocusignRequest />
                   </>
                 ) : null}

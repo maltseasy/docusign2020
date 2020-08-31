@@ -81,6 +81,19 @@ export async function getCompanySites(id) {
     return response.json();
 }
 
+export function updateDB(id, flag, notes) {
+    let url = baseUrl + `new_organization_requirements(${id})`;
+    var raw = JSON.stringify({"new_requirement_flag":flag,"new_requirement_notes":notes});
+    fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': 'Bearer ' + AccessKey.data.access_token,
+            "Content-Type": "application/json"
+        },
+        body: raw
+    }).then(response => console.log(response));
+}
+
 export function organizationType(type) {
     if (type === 1) {
         return "Certificate Holder";
