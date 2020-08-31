@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import Typography from '@material-ui/core/Typography';
 import LogoWhiteNofill from '../../logo_svg/acorn-green-nofill-text.svg';
-import MenuDrop from './MenuDrop';
 
 // import { clearCurrentProfile } from '../../actions/profileActions';
 
@@ -55,13 +54,13 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Sign Up (still broken) Q
+          <Link className="nav-link" to="https://github.com/aryanmisra/docusign2020/">
+            Github
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            Login
+          <Link className="nav-link" to="https://devpost.com/software/acorn-qualification-app">
+            Devpost
           </Link>
         </li>
       </ul>
@@ -92,7 +91,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <MenuDrop/>
+                {/* <MenuDrop/> */}
               </li>
             </ul>
 

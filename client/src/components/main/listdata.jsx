@@ -58,7 +58,7 @@ const ListData = (props) => {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#fafafa",
     borderRadius: 5,
     padding: 20,
     boxShadow:
@@ -73,7 +73,7 @@ const ListData = (props) => {
             {requirementInfo ? (
               <>
                 <h2>{requirementInfo.fsc_standard_title}</h2>
-                <p style={{ fontSize: "0.5rem" }}>
+                <p style={{ fontSize: "1rem" }}>
                   {requirementInfo.fsc_standard_comments}
                 </p>
                 <h5>{cocInput}</h5>
@@ -82,15 +82,21 @@ const ListData = (props) => {
               <></>
             )}
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <div style={{ float: "right", paddingRight: 10 }}>
+          <Grid item xs={12} sm={5}>
+            <div style={{paddingRight: 10,height:"100%" }}>
               <TextField
+                multiline
                 variant="outlined"
                 label="Notes"
                 value={currentData.new_requirement_notes}
                 onChange={handleNote}
-                style={{paddingBottom:10}}
+                style={{padding: 10, width:"100%",height:"100px"}}
               />
+             
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={1}>
+            <div style={{ padding: 10 }}>
               <Button onClick={handleFlag} style={{background: '#e3e3e3', paddingTop:10}}>
                 {currentData.new_requirement_flag ? <Flag /> : <FlagOutlined />}
               </Button>

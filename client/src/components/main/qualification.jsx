@@ -168,19 +168,21 @@ class Qualification extends React.Component {
               <TableBody style={{ width: "100%" }}>
                 {this.state.companyData &&
                   this.state.companyData.map((company, index) => (
+                    
                     <TableRow key={company.name} style={{ width: "100%" }}>
-                      <Button style={{ width: "100%" }}>
                         <TableCell
-                          style={{ width: "100%", fontSize: 14 }}
+                          style={{ width: "100%", fontSize: 14, height:'100%' }}
                           align="left"
                           onClick={() => this.handleCompanyView(company, index)}
+                          className="hvr-grow"
                         >
                           {company.name}
                         </TableCell>
-                      </Button>
-                      <TableCell align="left">
+                        
+                      <TableCell align="left" style={{height:'100%'}}>
                         {`${organizationType(company.fsc_organizationtype)}`}
                       </TableCell>
+                      
                     </TableRow>
                   ))}
               </TableBody>
