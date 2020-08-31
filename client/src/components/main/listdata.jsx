@@ -83,7 +83,7 @@ const ListData = (props) => {
             )}
           </Grid>
           <Grid item xs={12} sm={6}>
-            <div style={{ float: "right" }}>
+            <div style={{ float: "right", paddingRight: 10 }}>
               <TextField
                 variant="outlined"
                 label="Notes"
