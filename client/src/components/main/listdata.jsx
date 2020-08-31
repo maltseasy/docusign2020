@@ -42,8 +42,8 @@ const ListData = (props) => {
           {requirementInfo ? (
             <>
               <h2>{requirementInfo.fsc_standard_title}</h2>
-              <p>{requirementInfo.fsc_standard_comments}</p>
-              <h4>{cocInput}</h4>
+              <p style={{fontSize:"0.5rem"}}>{requirementInfo.fsc_standard_comments}</p>
+              <h5>{cocInput}</h5>
             </>
           ) : (
             <></>
