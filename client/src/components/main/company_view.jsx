@@ -175,7 +175,7 @@ class CompanyView extends React.Component {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <FormGroup row>
+              {/* <FormGroup row>
                 <FormControlLabel
                   control={
                     <Switch
@@ -209,14 +209,13 @@ class CompanyView extends React.Component {
                   }
                   label="Deforestation Regions"
                 />
-              </FormGroup>
+              </FormGroup> */}
               <WebMapView
                 data={this.state.mapData}
                 id={this.props.company.accountid}
                 layers={this.state.mapLayerToggles}
                 key={this.state.mapLayerToggles}
               />
-              <WebMapView2 />
             </Grid>
           </Grid>
         </Container>
