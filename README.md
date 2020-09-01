@@ -44,12 +44,14 @@ npm run dev
 
 - Company information is pulled from our Dynamics 365 Database, following the standard FSC Schema
 
+
 #### Company Requirement Details + Notes/Flagging
 
 ![Requirements](https://github.com/aryanmisra/docusign2020/blob/master/pics/2.png)
 
 - Notes can be added to each company requirement
 - Flags can be used to mark individual company requirements
+
 
 #### Esri Map Overlay
 
@@ -59,9 +61,6 @@ npm run dev
 - View Deforestation Clusters, Corruption Perception Index (CPI), COVID-19 Case, and Travel Advisory data around the company locations to understand risks
 - Choose from over 10 Basemap layers to understand the geographic area surrounding the company's locations
 
-#### View saved molecules
-
-![Saved Molecules](https://github.com/wlawt/synbiolic/blob/master/client/src/components/img/saved.png)
 
 #### Review and Sign
 
@@ -70,6 +69,7 @@ npm run dev
 - A company will be automatically flagged if the company it is based in has a low Corruption Perception Index or is near major deforestation regions
 - View flagged notes
 - Once you're ready to sign, use the Docusign eSignature API integrated within our webapp to sign the documents online
+
 
 ## Contributors to Acorn Qualification
 
