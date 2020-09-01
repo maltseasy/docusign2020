@@ -51,17 +51,17 @@ class CompanyView extends React.Component {
   }
 
   handleFlag = (e, index) => {
-    console.log(e, index);
+    //console.log(e, index);
   };
 
   handleNote = (e, index) => {
-    console.log(e, index);
+    //console.log(e, index);
   };
 
   componentWillMount() {
     // retrieve list or organization requirements
     getOrganizationRequirements(this.props.company.accountid).then((data) => {
-      console.log(data.value);
+      //console.log(data.value);
       this.setState(
         {
           organizationRequirements: data.value,
@@ -83,8 +83,8 @@ class CompanyView extends React.Component {
               });
             });
           });
-          console.log(flagged);
-          console.log(this.state.organizationRequirements.length);
+          //console.log(flagged);
+          //console.log(this.state.organizationRequirements.length);
           this.setState({
             percentageFlagged: `${
               Math.round(
@@ -149,8 +149,9 @@ class CompanyView extends React.Component {
   };
   handleSaveOR = (e, index) => {
     this.state.organizationRequirements[index] = e;
+    this.forceUpdate();
 
-    console.log(e);
+    //console.log(e);
     updateDB(
       e.new_organization_requirementid,
       e.new_requirement_flag,
@@ -166,7 +167,7 @@ class CompanyView extends React.Component {
       if (requirement.new_requirement_flag) {
         flagged = flagged + 1;
       }
-      console.log("hi");
+      //console.log("hi");
       return `${
         Math.round(
           (flagged / this.state.organizationRequirements.length) * 10000
@@ -197,7 +198,7 @@ class CompanyView extends React.Component {
     getRequirementName(
       this.state.requirement._new_fsc_requirment_type_per_coc_scenario_value
     ).then((data) => {
-      console.log(data.value[0].fsc_standard_title);
+      //console.log(data.value[0].fsc_standard_title);
       requirementName = data.value[0].fsc_standard_title;
     });
     return requirementName;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import { Flag } from "@material-ui/icons";
 import { FlagOutlined } from "@material-ui/icons";
@@ -25,10 +24,6 @@ const ListData = (props) => {
   }, [props.data]);
 
   const handleFlag = () => {
-    console.log({
-      ...currentData,
-      new_requirement_flag: !currentData.new_requirement_flag,
-    });
 
     setCurrentData({
       ...currentData,
@@ -38,7 +33,6 @@ const ListData = (props) => {
   };
 
   const handleNote = (e) => {
-    console.log(currentData);
     setCurrentData({
       ...currentData,
       new_requirement_notes: e.target.value,
@@ -47,7 +41,7 @@ const ListData = (props) => {
   };
 
   const handleSave = (e) => {
-    console.log(props.data);
+    //console.log(props.data);
     props.handleSave(currentData, props.index);
   };
 

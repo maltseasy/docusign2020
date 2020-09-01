@@ -12,14 +12,14 @@ const AutoFlags = (props) => {
     useEffect(() => {
         getCompanySites(props.id).then((data) => {
             data.value.forEach(dataValue => {
-                console.log(dataValue);
+                //console.log(dataValue);
                 getCountry(dataValue.fsc_longitude, dataValue.fsc_latitude).then(data => {
                     // get country name
                     var countryName = countryData.find(country => country['alpha-3'] === data).name;
-                    console.log(countryName);
+                    //console.log(countryName);
                     // check country name
                     var index = cpiData["Country_List"].indexOf(countryName);
-                    console.log(cpiData["CPI_Score"][index]);
+                    //console.log(cpiData["CPI_Score"][index]);
                     if (cpiData["CPI_Score"][index] < 50) {
                         let tempFlags = flags;
                         tempFlags.push("CPI Score of country is less than 50!");

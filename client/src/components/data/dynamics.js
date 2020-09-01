@@ -13,8 +13,8 @@ export async function getCompanyList(options) {
                 'Authorization': 'Bearer ' + AccessKey.data.access_token
             }
         });
-        //console.log(response.body);
-        //console.log(AccessKey.data);
+        ////console.log(response.body);
+        ////console.log(AccessKey.data);
         return response.json();
     }
 }
@@ -91,7 +91,7 @@ export function updateDB(id, flag, notes) {
             "Content-Type": "application/json"
         },
         body: raw
-    }).then(response => console.log(response));
+    })
 }
 
 export function organizationType(type) {

@@ -5,7 +5,7 @@ import { loadModules } from "esri-loader";
 const WebMapView2 = (props) => {
 
   useEffect(() => {
-    console.log(props);
+    //console.log(props);
     loadModules(
       [
         "esri/map",
@@ -34,7 +34,7 @@ const WebMapView2 = (props) => {
       var covidCasesLayer = new FeatureLayer("https://services1.arcgis.com/0MSEUqKaxRlEPj5g/ArcGIS/rest/services/ncov_cases/FeatureServer/2");
       var deforestationLayer = new WFSLayer();
       deforestationLayer.fromJson(opts_def);
-      console.log(props);
+      //console.log(props);
       if(props.layers.covidTravelRisks){
         map.addLayer(covidTravelLayer);
       }
@@ -45,7 +45,7 @@ const WebMapView2 = (props) => {
         map.addLayer(deforestationLayer);
       }
       
-      // console.log(map,layer);
+      // //console.log(map,layer);
     }).catch(err => console.log(err));
   }, [props])
 
@@ -109,7 +109,7 @@ export default class WebMapView extends React.Component {
         map.addLayer(deforestationLayer);
       }
       
-      // console.log(map,layer);
+      // //console.log(map,layer);
     }).catch(err => console.log(err));
   }
 

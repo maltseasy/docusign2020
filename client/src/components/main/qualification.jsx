@@ -8,8 +8,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CompanyView from "./company_view";
-import Button from "@material-ui/core/Button";
-import DummyData from "../data/dummy_data.json";
 import { getCompanyList, organizationType } from "../data/dynamics";
 
 const useStyles = (theme) => ({
@@ -78,7 +76,7 @@ class Qualification extends React.Component {
 
   componentDidMount() {
     getCompanyList().then((data) => {
-      console.log(data);
+      //console.log(data);
       this.setState({
         companyData: data.value,
       });
@@ -110,7 +108,7 @@ class Qualification extends React.Component {
   };
 
   handleCompanyView = (companyData, index) => {
-    console.log(index);
+    //console.log(index);
     this.setState(
       {
         company: companyData,

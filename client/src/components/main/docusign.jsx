@@ -9,7 +9,7 @@ export class DocusignCallback extends React.Component {
   }
   componentDidMount() {
     sessionStorage.setItem("docusign_loggedin", true);
-    console.log('set item into storage')
+    //console.log('set item into storage')
     // window.close();
   }
   
