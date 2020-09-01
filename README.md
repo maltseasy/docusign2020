@@ -2,6 +2,9 @@
 
 [Docusign 2020](https://docusign2020.devpost.com/) Virtual Audit Qualification App Submission
 
+[Submission Link](https://devpost.com/software/acorn-qualification-app)
+[Colab Submission Link](https://devpost.com/software/collaboration-bonus-super-app?ref_content=user-portfolio&ref_feature=in_progress)
+
 ## Video Demo
 
 [Link](https://www.youtube.com/watch?v=iS5WwBtIYYU)
@@ -10,8 +13,6 @@
 
 - [Pre-Assessment-App (App 1)](https://devpost.com/software/pre-assessment-app)
 - [Greenblocks (App 3)](https://devpost.com/software/greenblocks-bwse37)
-
-[Submission Link](https://devpost.com/software/collaboration-bonus-super-app?ref_content=user-portfolio&ref_feature=in_progress)
 
 ## Running the repo
 
