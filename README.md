@@ -6,6 +6,10 @@
 
 [Colab Submission Link](https://devpost.com/software/collaboration-bonus-super-app?ref_content=user-portfolio&ref_feature=in_progress)
 
+## Live App Demo
+
+[Link](http://54.162.48.160/)
+
 ## Video Demo
 
 [Link](https://www.youtube.com/watch?v=iS5WwBtIYYU)
