@@ -95,15 +95,15 @@ app.get('/ds/login', commonControllers.login).get('/ds/callback', function () {
   // sessionStorage.setItem("docusign_loggedin", true);
   commonControllers.returnController;
 
-  if (req.query.event === "signing_complete") {
-    request({
-      uri: "http://localhost:3000/frontendsignedin",
-      method: "GET"
-    }, function (error, response) {
-      if (error) throw new Error(error);
-      console.log(response);
-    });
-  }
+  // if (req.query.event === "signing_complete") {
+  //   request({
+  //     uri: "http://localhost:3000/frontendsignedin",
+  //     method: "GET"
+  //   }, function (error, response) {
+  //     if (error) throw new Error(error);
+  //     console.log(response);
+  //   });
+  // }
 }).use(csrf({
   cookie: true
 })) // CSRF protection for the following routes
