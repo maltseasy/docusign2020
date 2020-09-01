@@ -36,30 +36,38 @@ npm run dev
 
 ## Instructions - Step-by-step Walkthrough:
 
-#### Landing Page
+#### Company Application List (Landing Page)
 
-![Landing page](https://github.com/wlawt/synbiolic/blob/master/client/src/components/img/landing.png)
+![Landing page](https://github.com/aryanmisra/docusign2020/blob/master/pics/1.png)
 
-#### User onboarding
+- Company information is pulled from our Dynamics 365 Database, following the standard FSC Schema
 
-![User onboarding](https://github.com/wlawt/synbiolic/blob/master/client/src/components/img/welcome.png)
+#### Company Requirement Details + Notes/Flagging
 
-#### Generate Molecules
+![Requirements](https://github.com/aryanmisra/docusign2020/blob/master/pics/2.png)
 
-![Generate Molecules](https://github.com/wlawt/synbiolic/blob/master/client/src/components/img/generate.png)
+- Notes can be added to each company requirement
+- Flags can be used to mark individual company requirements
 
-- The number of recommended molecules to generate is 20-50 (for demo purposes).
-- It will then take you to all the generated molecules - where you can view the molecules and the plc-50 distribution
-- You can save any of the molecules and click on them to bring up the retrosynthesis pathway
-- The retrosynthesis pathway will have more details about the molecule itself
+#### Esri Map Overlay
+
+![Map Overlay](https://github.com/aryanmisra/docusign2020/blob/master/pics/3.png)
+
+- Four map layers provide the auditor with a wide array of relevant geospatial information
+- View Deforestation Clusters, Corruption Perception Index (CPI), COVID-19 Case, and Travel Advisory data around the company locations to understand risks
+- Choose from over 10 Basemap layers to understand the geographic area surrounding the company's locations
 
 #### View saved molecules
 
 ![Saved Molecules](https://github.com/wlawt/synbiolic/blob/master/client/src/components/img/saved.png)
 
-#### View Retrosynthesis Requests
+#### Review and Sign
 
-![Retrosynthesis Requests](https://github.com/wlawt/synbiolic/blob/master/client/src/components/img/retro.png)
+![Review + Sign](https://github.com/aryanmisra/docusign2020/blob/master/pics/4.png)
+
+- A company will be automatically flagged if the company it is based in has a low Corruption Perception Index or is near major deforestation regions
+- View flagged notes
+- Once you're ready to sign, use the Docusign eSignature API integrated within our webapp to sign the documents online
 
 ## Contributors to Acorn Qualification
 
