@@ -103,29 +103,29 @@ if (
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 
-    // if (timeDiff < 0) {
-    console.log("requesting new token!");
+    // // if (timeDiff < 0) {
+    // console.log("requesting new token!");
 
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
+    // request(options, function (error, response) {
+    //   if (error) throw new Error(error);
 
-      console.log(response.body);
-      var newTime = new Date(Date.now() + 3600000);
-      var NewAccessKey = { newTime: newTime };
-      NewAccessKey.data = JSON.parse(response.body);
+    //   console.log(response.body);
+    //   var newTime = new Date(Date.now() + 3600000);
+    //   var NewAccessKey = { newTime: newTime };
+    //   NewAccessKey.data = JSON.parse(response.body);
 
-      console.log(newTime, expTime, now);
+    //   console.log(newTime, expTime, now);
 
-      fs.writeFile(
-        "./client/src/components/data/access_key.json",
-        JSON.stringify(NewAccessKey),
-        "utf8",
-        function (err) {
-          if (err) throw err;
-          console.log("complete");
-        }
-      );
-    });
+    //   fs.writeFile(
+    //     "./client/src/components/data/access_key.json",
+    //     JSON.stringify(NewAccessKey),
+    //     "utf8",
+    //     function (err) {
+    //       if (err) throw err;
+    //       console.log("complete");
+    //     }
+    //   );
+    // });
     // }
 
     // cron.schedule("*/45 * * * *", function () {
