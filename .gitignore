@@ -8,3 +8,4 @@ package-lock.json
 !.elasticbeanstalk/*.global.yml
 private.key
 config/
+client/src/components/data/access_key.json
