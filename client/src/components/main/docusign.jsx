@@ -31,11 +31,11 @@ export class DocusignRequest extends React.Component {
     //   "https://account-d.docusign.com/oauth/auth?response_type=code&scope-signature&client_id=" +
     //   this.state.client_id +
     //   "&redirect_uri=http://localhost:5000/callback";
-    window.open("http://54.162.48.160:5000/ds/login", "_blank");
+    window.open("http://localhost:5000/ds/login", "_blank");
   };
 
   handleCeremony = () => {
-    window.open("http://54.162.48.160:5000/dataSharing", "_blank");
+    window.open("http://localhost:5000/dataSharing", "_blank");
   };
 
   render() {
