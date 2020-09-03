@@ -12,7 +12,7 @@
 
 ## Video Demo
 
-[Link](https://www.youtube.com/watch?v=iS5WwBtIYYU)
+[Link](https://youtu.be/nA7HsEDKS1U)
 
 ## Collaboration Partners
 
