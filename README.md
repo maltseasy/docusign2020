@@ -8,7 +8,7 @@
 
 ## Live App Demo
 
-[Link](http://54.162.48.160/)
+[Link](https://54.164.74.238/)
 
 ## Video Demo
 
