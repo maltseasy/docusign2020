@@ -1,11 +1,12 @@
 const express = require("express");
+const https = require("https");
+const http = require("http");
 const bodyParser = require("body-parser");
 const path = require("path");
 var request = require("request");
 let AccessKey = require("./client/src/components/data/access_key.json");
 var fs = require("fs");
 const cron = require("node-cron");
-// const eg001 = require('./embeddedsigning');
 
 // Insert API Routes below
 const session = require("express-session"), // https://github.com/expressjs/session
@@ -27,7 +28,7 @@ const PORT = process.env.PORT || 5000,
   HOST = process.env.HOST || "localhost",
   max_session_min = 180,
   csrfProtection = csrf({ cookie: true });
-let hostUrl = "http://" + HOST + ":" + PORT;
+let hostUrl = "https://" + HOST + ":" + PORT;
 if (dsConfig.appUrl != "" && dsConfig.appUrl != "{APP_URL}") {
   hostUrl = dsConfig.appUrl;
 }
@@ -98,61 +99,8 @@ if (
   dsConfig.dsClientSecret &&
   dsConfig.dsClientSecret !== "{CLIENT_SECRET}"
 ) {
-  const port = process.env.PORT || 5000;
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-
-    // // if (timeDiff < 0) {
-    // console.log("requesting new token!");
-
-    // request(options, function (error, response) {
-    //   if (error) throw new Error(error);
-
-    //   console.log(response.body);
-    //   var newTime = new Date(Date.now() + 3600000);
-    //   var NewAccessKey = { newTime: newTime };
-    //   NewAccessKey.data = JSON.parse(response.body);
-
-    //   console.log(newTime, expTime, now);
-
-    //   fs.writeFile(
-    //     "./client/src/components/data/access_key.json",
-    //     JSON.stringify(NewAccessKey),
-    //     "utf8",
-    //     function (err) {
-    //       if (err) throw err;
-    //       console.log("complete");
-    //     }
-    //   );
-    // });
-    // }
-
-    // cron.schedule("*/45 * * * *", function () {
-    //   console.log("requesting new token!");
-
-    //   request(options, function (error, response) {
-    //     if (error) throw new Error(error);
-
-    //     console.log(response.body);
-    //     var newTime = new Date(Date.now() + 3600000);
-    //     var NewAccessKey = { newTime: newTime };
-    //     NewAccessKey.data = JSON.parse(response.body);
-
-    //     console.log(newTime, expTime, now);
-
-    //     fs.writeFile(
-    //       "./client/src/components/data/access_key.json",
-    //       JSON.stringify(NewAccessKey),
-    //       "utf8",
-    //       function (err) {
-    //         if (err) throw err;
-    //         console.log("complete");
-    //       }
-    //     );
-    //   });
-    // });
-  });
+  https.createServer({key:fs.readFileSync('./certs/private.key'),cert:fs.readFileSync('./certs/certificate.crt')}, app).listen(PORT, function() {console.log("Server listening on port "+PORT)});
 
   console.log(`Listening on ${PORT}`);
   console.log(`Ready! Open ${hostUrl}`);
@@ -194,10 +142,7 @@ let docusignStrategy = new DocusignStrategy(
   }
 );
 
-/**
- * The DocuSign OAuth default is to allow silent authentication.
- * An additional OAuth query parameter is used to not allow silent authentication
- */
+
 if (!dsConfig.allowSilentAuthentication) {
   // See https://stackoverflow.com/a/32877712/64904
   docusignStrategy.authorizationParams = function (options) {

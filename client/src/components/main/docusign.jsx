@@ -27,15 +27,11 @@ export class DocusignRequest extends React.Component {
   }
 
   handleClickLogin = () => {
-    // const url =
-    //   "https://account-d.docusign.com/oauth/auth?response_type=code&scope-signature&client_id=" +
-    //   this.state.client_id +
-    //   "&redirect_uri=http://localhost:5000/callback";
-    window.open("http://localhost:5000/ds/login", "_blank");
+    window.open("https://localhost:5000/ds/login", "_blank");
   };
 
   handleCeremony = () => {
-    window.open("http://localhost:5000/dataSharing", "_blank");
+    window.open("https://localhost:5000/dataSharing", "_blank");
   };
 
   render() {

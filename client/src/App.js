@@ -25,7 +25,7 @@ const THEME = createMuiTheme({
 
 class App extends Component {
   render() {
-
+    const reload = () => window.location.reload();
     setDefaultOptions({ version: '3.33' });
 
     return (
@@ -37,6 +37,7 @@ class App extends Component {
               <Switch>
                 <Route path="/" component={Qualifaction} />
                 <Route path="/callback" component={DocusignCallback} />
+                <Route path="/.well-known/pki-validation/B5D0C0EBBCE0324B30DE84AE323AFE68.txt" onEnter={reload} />
               </Switch>
               
             </div>
